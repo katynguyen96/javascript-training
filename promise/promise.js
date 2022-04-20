@@ -29,7 +29,7 @@ promise
 		console.log(result3+'!');
 		return result3+'!';
 	})
-	.finally((result4)=>{
+	.then((result4)=>{
 		console.log(result4 + "+")
 		return result4 + "-";
 		console.log(result4)
