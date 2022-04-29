@@ -1,0 +1,79 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+.container .title{
+	font-size: 50px;
+	text-align: center;
+}
+
+.container{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+.container .book{
+	color: #5ee6e6;
+}
+
+.container .search-bar{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: #FFF;
+	border: 1px #131414 solid;
+	border-radius: 60px;
+	padding:5px;
+	width: 100%;
+	max-width: 300px;
+	margin-top: 20px;
+	margin-bottom: 15px;
+}
+
+.container .search-bar .search-input{
+	background:transparent;
+	border: none;
+	outline: none;
+	width: 80%;
+	font-size: 14px;
+}
+
+.container .search-bar .search-btn{
+	border: 0;
+	height: 30px;
+	width: 30px;
+	border-radius: 50%;
+	background: #58629b;
+	cursor: pointer;
+}
+
+.container .search-bar img{
+	height: 20px;
+	width: 20px;
+}
+
+.add-book-page{
+	position: all;
+	top: 100px;
+	opacity: 0;
+	visibility: hidden;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: 2px #BABABA solid;
+	border-radius: 6px;
+	width: 400px;
+	top: 50%;
+	left: 50%;
+	margin: auto;
+}
+
+.open-add-page{
+	opacity: 1;
+	visibility: visible;
+}
+
