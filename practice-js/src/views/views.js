@@ -1,11 +1,11 @@
 export default class View{
 	constructor(){
-		this.ENTER_KEY = 13;
 		this.inputTitle = document.getElementById('add-title')
 		this.inputAuthor = document.getElementById('add-author')
 		this.inputDescription = document.getElementById('add-des')
 		this.inputImg = document.getElementById('add-img')
 		this.booklist = document.getElementById("booklist")
+		this.addBtn = document.getElementById("submit")
 	}
 
 	get _book(){
@@ -23,6 +23,7 @@ export default class View{
 	
 				const title = document.createElement("h2")
 				title.className = "book-title"
+				title.textContent = book.title
 	
 				const bookBody = document.createElement("div");
 				bookBody.className = "body";
@@ -33,11 +34,13 @@ export default class View{
 	
 				const des = document.createElement("div")
 				des.className = "book-des"
+				des.textContent = book.description
 	
 				const author = document.createElement("h2")
 				author.className = "book-author"
+				author.textContent = book.author
 	
-				bookBody.append(title, author)
+				bookBody.append(title, author, des)
 	
 				const btnDelete = document.createElement("button")
 				btnDelete.className = "delete-btn"
@@ -46,19 +49,15 @@ export default class View{
 				cardBook.append(img, bookBody, btnDelete);
 				this.booklist.appendChild(cardBook)
 			})
-		}
-		
+		}	
 	}
 
 	bindAddBook(handler){
-		this.inputTitle.addEventListener('keyup', e => {
+		this.addBtn.addEventListener('click', e => {
             e.preventDefault()
-
-            if (e.which === this.ENTER_KEY) {
                 if (this._book) {
                     handler(this._book)
                 }
-            }
         })
 	}
 
@@ -71,5 +70,4 @@ export default class View{
             }
         })
     }
-
 }
