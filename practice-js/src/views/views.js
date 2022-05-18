@@ -17,7 +17,7 @@ export default class View{
 			this.booklist.removeChild(this.booklist.firstChild)
 		}
 		if(books.length !== 0){
-			books.map(book=>{
+			books.forEach(book=>{
 				const cardBook = document.createElement("div")
 				cardBook.id = book.id
 	
@@ -60,6 +60,10 @@ export default class View{
                 }
         })
 	}
+
+	// handleAddBook(title, author, description, image){
+	// 	this.handleBook(title, author, description, image)
+	// }
 
 	bindDeleteBook(handler) {
         this.booklist.addEventListener('click', e => {

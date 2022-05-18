@@ -1,11 +1,23 @@
 {
-    "books": [
-      {
-        "title": "Seven Highly Effective People",
-        "author": "Frankie Bones",
-        "coverImage": "https://upload.wikimedia.org/wikipedia/en/thumb/a/a2/The_7_Habits_of_Highly_Effective_People.jpg/220px-The_7_Habits_of_Highly_Effective_People.jpg",
-        "description": "7 Habits of Highly Effective People, first published in 1989, is a business and self-help book written by Stephen Covey.[1] Covey presents an approach to being effective in attaining goals by aligning oneself to what he calls \"true north\" principles based on a character ethic that he presents as universal and timeless. Covey defines effectiveness as the balance of obtaining desirable results with caring for that which produces those results. He illustrates this by referring to the fable of the goose that laid the golden eggs. He further claims that effectiveness can be expressed in terms of the P/PC ratio, where P refers to getting desired results and PC is caring for that which produces the results. Covey's best-known book has sold more than 25 million copies worldwide since its first publication.[2] The audio version became the first non-fiction audio-book in U.S. publishing history to sell more than one million copies.[3] Covey argues against what he calls \"the personality ethic\", that he sees as prevalent in many modern self-help books. He promotes what he labels \"the character ethic\": aligning one's values with so-called universal and timeless principles. In doing this, Covey distinguishes principles and values. He sees principles as external natural laws, while values remain internal and subjective. Our values govern our behavior, while principles ultimately determine the consequences. ",
-        "id": 1
-      }
-    ]
-  }
+  "books": [
+    {
+      "title": "Seven Highly Effective People",
+      "author": "Frankie Bones",
+      "image": "https://upload.wikimedia.org/wikipedia/en/thumb/a/a2/The_7_Habits_of_Highly_Effective_People.jpg/220px-The_7_Habits_of_Highly_Effective_People.jpg",
+      "description": "7 Habits of Highly Effective People, first published in 1989",
+      "id": 1
+    },
+    {
+      "id": "1652860265703",
+      "title": "123"
+    },
+    {
+      "id": "1652860473279",
+      "title": "456"
+    },
+    {
+      "id": "1652860565039",
+      "title": "444"
+    }
+  ]
+}
