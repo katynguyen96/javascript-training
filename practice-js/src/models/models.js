@@ -1,6 +1,8 @@
+import fetch from '../helpers/service'
+import path from '../constant'
 export default class Model{
 	constructor(){
-		this.books = JSON.parse(localStorage.getItem('books')) || []
+		this.books = []
 	}
 
 	bindBookListChanged(callback){
@@ -12,19 +14,34 @@ export default class Model{
 		localStorage.setItem('books', JSON.stringify(books))
 	}
 
+	/**
+     * 
+     * @param {string} id
+     * @param {string} title
+	 * @param {string} author
+	 * @param {string} description
+	 * @param {string} image 
+     */
 	//Add book
-	addBook(title, author, description, image){
-		const book = {
-			id: this.books.length > 0 ? this.books[this.books.length - 1].id + 1 : 1,
-            title: title,
-            author: author,
-            description: description,
-            image: image,
-		}
-
-		this.books.push(book)
-		this._commit(this.books)
+	async addBook(title, author, description, image){
+		await fetch.create(`/${path.PATH}`,{
+			id: new Date().getTime().toString(),
+			title: title,
+			author: author,
+			description: description,
+			image: image,
+		})
 	}
+
+	async getBook(){
+		const book = await fetch.get(`/${path.PATH}`)
+		return book
+	}
+
+	/**
+     * 
+     * @param {string} id 
+     */
 
 	deleteBook(id) {
         this.books = this.books.filter(books => books.id !== id)
