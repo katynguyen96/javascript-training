@@ -1,6 +1,6 @@
-import Controller from "./controller/controller.js";
-import Model from "./models/models.js";
-import View from "./views/views.js";
+import Controller from "./controllers/book.js";
+import Model from "./models/book.js";
+import View from "./views/book.js";
 
 const model = new Model(),
     view = new View(model);
