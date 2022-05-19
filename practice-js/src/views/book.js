@@ -8,10 +8,6 @@ export default class View{
 		this.addBtn = document.getElementById("submit")
 	}
 
-	get _book(){
-		return this.inputTitle.value
-	}
-
 	display(books){
 		while(this.booklist.firstChild){
 			this.booklist.removeChild(this.booklist.firstChild)
@@ -55,15 +51,9 @@ export default class View{
 	bindAddBook(handler){
 		this.addBtn.addEventListener('click', e => {
             e.preventDefault()
-                if (this._book) {
-                    handler(this._book)
-                }
+                    handler(this.inputTitle.value,this.inputAuthor.value, this.inputDescription.value)   
         })
 	}
-
-	// handleAddBook(title, author, description, image){
-	// 	this.handleBook(title, author, description, image)
-	// }
 
 	bindDeleteBook(handler) {
         this.booklist.addEventListener('click', e => {

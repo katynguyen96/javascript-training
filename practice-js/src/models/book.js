@@ -9,14 +9,9 @@ export default class Model{
 		this.onBookListChanged = callback
 	}
 
-	_commit(books){
-		this.onBookListChanged(books)
-		localStorage.setItem('books', JSON.stringify(books))
-	}
-
 	/**
      * 
-     * @param {string} id
+     * @param {number} id
      * @param {string} title
 	 * @param {string} author
 	 * @param {string} description
@@ -31,8 +26,13 @@ export default class Model{
 			description: description,
 			image: image,
 		})
+		// this.books.push()
 	}
 
+	/**
+   * Use API url from fetch import in read data
+   * @returns {array} books.
+   */
 	async getBook(){
 		const book = await fetch.get(`/${path.PATH}`)
 		return book
@@ -45,7 +45,6 @@ export default class Model{
 
 	deleteBook(id) {
         this.books = this.books.filter(books => books.id !== id)
-        this._commit(this.books)
     }
 }
 
