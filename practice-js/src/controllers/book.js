@@ -13,8 +13,8 @@ export default class Controller{
 		this.view.display(books)
 	}
 
-	handleAddBook = (title, author, description, image)=>{
-		this.model.addBook(title, author, description, image)
+	handleAddBook = (title, author, description, category, image)=>{
+		this.model.addBook(title, author, description, category, image)
 	}
 
 	handleDeleteBook = id => {

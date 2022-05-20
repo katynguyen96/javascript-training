@@ -4,16 +4,15 @@
 	box-sizing: border-box;
 }
 
+
 .container .title{
-	font-size: 50px;
-	text-align: center;
+	font-size: 30px;
 }
 
 .container{
+	margin-left: 50px;
+	margin-top: 30px;
 	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
 }
 
 .container .book{
@@ -21,16 +20,16 @@
 }
 
 .container .search-bar{
+	margin-left: 90px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	background-color: #FFF;
 	border: 1px #131414 solid;
 	border-radius: 60px;
-	padding:5px;
+	padding:2px;
 	width: 100%;
 	max-width: 300px;
-	margin-top: 20px;
 	margin-bottom: 15px;
 }
 
@@ -39,13 +38,14 @@
 	border: none;
 	outline: none;
 	width: 80%;
-	font-size: 14px;
+	font-size: 13px;
+	margin-left: 5px;
 }
 
 .container .search-bar .search-btn{
 	border: 0;
 	height: 30px;
-	width: 30px;
+	width:30px;
 	border-radius: 50%;
 	background: #58629b;
 	cursor: pointer;
@@ -56,24 +56,88 @@
 	width: 20px;
 }
 
+.add-btn{
+	text-align: right;
+	margin-right: 200px;
+}
+
+#add-new-book{
+	cursor: pointer;
+	background-color: #4D60DC;
+	color: #FFF;
+	padding: 5px;
+	text-transform: capitalize;
+	border-radius: 3px;
+}
+
+#add-new-book i{
+	margin-right: 5px;
+}
+
+.form-title {
+	text-align: center;
+	margin-top: 10px;
+}
+
 .add-book-page{
-	position: all;
-	top: 100px;
-	opacity: 0;
+	position: fixed;
+	top:50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 	visibility: hidden;
 	display: flex;
-	justify-content: center;
-	align-items: center;
 	border: 2px #BABABA solid;
+	z-index: 10;
 	border-radius: 6px;
-	width: 400px;
-	top: 50%;
-	left: 50%;
+	width: 350px;
 	margin: auto;
+	background-color: white;
+}
+
+.popup{
+	margin-left: 15px;
+}
+
+.field{
+	margin-top: 15px;
+}
+
+.field textarea{
+	height: 60px;
+	width: 310px;
+	resize: none;
+}
+
+.field input{
+	padding: 4px;
+	width: 310px;
+}
+
+.btn{
+	display: flex;
+	justify-content: space-between;
+}
+
+.close, .submit{
+	margin-top: 15px;
+	width: 70px;
+	height: 30px;
+	margin-bottom: 10px;
 }
 
 .open-add-page{
 	opacity: 1;
 	visibility: visible;
+}
+
+.overlay{
+	position: fixed;
+  	opacity: 0;
+  	top: 0;
+  	left: 0;
+  	right: 0;
+  	bottom: 0;
+  	background-color: rgba(0, 0, 0, .5);
+  	pointer-events: none;
 }
 

@@ -5,14 +5,12 @@
 }
 
 .container .title {
-  text-align: center;
-  font-size: 50px;
+  font-size: 30px;
 }
 
 .container {
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  margin-top: 30px;
+  margin-left: 50px;
   display: flex;
 }
 
@@ -28,9 +26,9 @@
   border-radius: 60px;
   justify-content: space-between;
   align-items: center;
-  margin-top: 20px;
   margin-bottom: 15px;
-  padding: 5px;
+  margin-left: 90px;
+  padding: 2px;
   display: flex;
 }
 
@@ -39,7 +37,8 @@
   background: none;
   border: none;
   outline: none;
-  font-size: 14px;
+  margin-left: 5px;
+  font-size: 13px;
 }
 
 .container .search-bar .search-btn {
@@ -56,24 +55,86 @@
   width: 20px;
 }
 
+.add-btn {
+  text-align: right;
+  margin-right: 200px;
+}
+
+#add-new-book {
+  cursor: pointer;
+  color: #fff;
+  text-transform: capitalize;
+  background-color: #4d60dc;
+  border-radius: 3px;
+  padding: 5px;
+}
+
+#add-new-book i {
+  margin-right: 5px;
+}
+
+.form-title {
+  text-align: center;
+  margin-top: 10px;
+}
+
 .add-book-page {
-  position: all;
-  opacity: 0;
   visibility: hidden;
-  width: 400px;
+  z-index: 10;
+  width: 350px;
+  background-color: #fff;
   border: 2px solid #bababa;
   border-radius: 6px;
-  justify-content: center;
-  align-items: center;
   margin: auto;
   display: flex;
+  position: fixed;
   top: 50%;
   left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.popup {
+  margin-left: 15px;
+}
+
+.field {
+  margin-top: 15px;
+}
+
+.field textarea {
+  height: 60px;
+  width: 310px;
+  resize: none;
+}
+
+.field input {
+  width: 310px;
+  padding: 4px;
+}
+
+.btn {
+  justify-content: space-between;
+  display: flex;
+}
+
+.close, .submit {
+  width: 70px;
+  height: 30px;
+  margin-top: 15px;
+  margin-bottom: 10px;
 }
 
 .open-add-page {
   opacity: 1;
   visibility: visible;
+}
+
+.overlay {
+  opacity: 0;
+  pointer-events: none;
+  background-color: #00000080;
+  position: fixed;
+  inset: 0;
 }
 
 /*# sourceMappingURL=index.599ca509.css.map */

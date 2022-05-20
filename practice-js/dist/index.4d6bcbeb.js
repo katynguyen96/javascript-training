@@ -536,7 +536,31 @@ var _bookJsDefault2 = parcelHelpers.interopDefault(_bookJs2);
 const model = new _bookJsDefault1.default(), view = new _bookJsDefault2.default(model);
 const app = new _bookJsDefault.default(model, view);
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./views/book.js":"8rls2","./models/book.js":"b4yEX","./controllers/book.js":"dkA5j"}],"gkKU3":[function(require,module,exports) {
+},{"./controllers/book.js":"dkA5j","./models/book.js":"b4yEX","./views/book.js":"8rls2","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dkA5j":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+class Controller {
+    constructor(model, view){
+        this.model = model;
+        this.view = view;
+        this.model.bindBookListChanged(this.onBookListChanged);
+        this.view.bindAddBook(this.handleAddBook);
+        this.view.bindDeleteBook(this.handleDeleteBook);
+        this.onBookListChanged(this.model.books);
+    }
+    onBookListChanged = (books)=>{
+        this.view.display(books);
+    };
+    handleAddBook = (title, author, description, category, image)=>{
+        this.model.addBook(title, author, description, category, image);
+    };
+    handleDeleteBook = (id)=>{
+        this.model.deleteBook(id);
+    };
+}
+exports.default = Controller;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -566,64 +590,7 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}],"8rls2":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-class View {
-    constructor(){
-        this.inputTitle = document.getElementById('add-title');
-        this.inputAuthor = document.getElementById('add-author');
-        this.inputDescription = document.getElementById('add-des');
-        this.inputImg = document.getElementById('add-img');
-        this.booklist = document.getElementById("booklist");
-        this.addBtn = document.getElementById("submit");
-    }
-    display(books) {
-        while(this.booklist.firstChild)this.booklist.removeChild(this.booklist.firstChild);
-        if (books.length !== 0) books.forEach((book)=>{
-            const cardBook = document.createElement("div");
-            cardBook.id = book.id;
-            const title = document.createElement("h2");
-            title.className = "book-title";
-            title.textContent = book.title;
-            const bookBody = document.createElement("div");
-            bookBody.className = "body";
-            const img = document.createElement("div");
-            img.className = "book-img";
-            // img.style.backgroundImage = url(book.image)
-            const des = document.createElement("div");
-            des.className = "book-des";
-            des.textContent = book.description;
-            const author = document.createElement("h2");
-            author.className = "book-author";
-            author.textContent = book.author;
-            bookBody.append(title, author, des);
-            const btnDelete = document.createElement("button");
-            btnDelete.className = "delete-btn";
-            btnDelete.textContent = "Delete";
-            cardBook.append(img, bookBody, btnDelete);
-            this.booklist.appendChild(cardBook);
-        });
-    }
-    bindAddBook(handler) {
-        this.addBtn.addEventListener('click', (e)=>{
-            e.preventDefault();
-            handler(this.inputTitle.value, this.inputAuthor.value, this.inputDescription.value);
-        });
-    }
-    bindDeleteBook(handler) {
-        this.booklist.addEventListener('click', (e)=>{
-            e.preventDefault();
-            if (e.target.className === 'delete-btn') {
-                const id = parseInt(e.target.parentElement.id);
-                handler(id);
-            }
-        });
-    }
-}
-exports.default = View;
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"b4yEX":[function(require,module,exports) {
+},{}],"b4yEX":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _service = require("../helpers/service");
@@ -645,12 +612,13 @@ class Model {
 	 * @param {string} description
 	 * @param {string} image 
      */ //Add book
-    async addBook(title, author, description, image) {
+    async addBook(title, author, description, category, image) {
         await _serviceDefault.default.create(`/${_constantDefault.default.PATH}`, {
             id: new Date().getTime().toString(),
             title: title,
             author: author,
             description: description,
+            category: category,
             image: image
         });
     // this.books.push()
@@ -766,29 +734,63 @@ exports.default = {
     PATH
 };
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dkA5j":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8rls2":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-class Controller {
-    constructor(model, view){
-        this.model = model;
-        this.view = view;
-        this.model.bindBookListChanged(this.onBookListChanged);
-        this.view.bindAddBook(this.handleAddBook);
-        this.view.bindDeleteBook(this.handleDeleteBook);
-        this.onBookListChanged(this.model.books);
+class View {
+    constructor(){
+        this.inputTitle = document.getElementById('add-title');
+        this.inputAuthor = document.getElementById('add-author');
+        this.inputDescription = document.getElementById('add-des');
+        this.inputImg = document.getElementById('add-img');
+        this.inputCate = document.getElementById('add-cate');
+        this.booklist = document.getElementById("booklist");
+        this.addBtn = document.getElementById("submit");
     }
-    onBookListChanged = (books)=>{
-        this.view.display(books);
-    };
-    handleAddBook = (title, author, description, image)=>{
-        this.model.addBook(title, author, description, image);
-    };
-    handleDeleteBook = (id)=>{
-        this.model.deleteBook(id);
-    };
+    display(books) {
+        while(this.booklist.firstChild)this.booklist.removeChild(this.booklist.firstChild);
+        if (books.length !== 0) books.forEach((book)=>{
+            const cardBook = document.createElement("div");
+            cardBook.id = book.id;
+            const title = document.createElement("h2");
+            title.className = "book-title";
+            title.textContent = book.title;
+            const bookBody = document.createElement("div");
+            bookBody.className = "body";
+            const img = document.createElement("div");
+            img.className = "book-img";
+            // img.style.backgroundImage = url(book.image)
+            const des = document.createElement("div");
+            des.className = "book-des";
+            des.textContent = book.description;
+            const author = document.createElement("h2");
+            author.className = "book-author";
+            author.textContent = book.author;
+            bookBody.append(title, author, des);
+            const btnDelete = document.createElement("button");
+            btnDelete.className = "delete-btn";
+            btnDelete.textContent = "Delete";
+            cardBook.append(img, bookBody, btnDelete);
+            this.booklist.appendChild(cardBook);
+        });
+    }
+    bindAddBook(handler) {
+        this.addBtn.addEventListener('click', (e)=>{
+            e.preventDefault();
+            handler(this.inputTitle.value, this.inputAuthor.value, this.inputDescription.value, this.inputCate.value, this.inputImg.value);
+        });
+    }
+    bindDeleteBook(handler) {
+        this.booklist.addEventListener('click', (e)=>{
+            e.preventDefault();
+            if (e.target.className === 'delete-btn') {
+                const id = parseInt(e.target.parentElement.id);
+                handler(id);
+            }
+        });
+    }
 }
-exports.default = Controller;
+exports.default = View;
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["aOoxC","gLLPy"], "gLLPy", "parcelRequire09fa")
 
