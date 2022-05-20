@@ -6,55 +6,74 @@
 	<link rel="stylesheet" type="text/css" href="/index.599ca509.css">
 </head>
 <body>
-	<div class="container">
-		<h1 class="title">
-		<i class="fas fa-book-open"></i>  My<span class="book">Book</span>List</h1>
-		<div class="search-bar">
-			<input class="search-input" type="" name="" placeholder="Search">
-			<button class="search-btn"><img src="/search.f888ef0d.png"></button>
+	<div class="header">
+		<div class="container">
+			<h1 class="title">
+			<i class="fas fa-book-open"></i>  My<span class="book">Book</span>List</h1>
+			<div class="search-bar">
+				<input class="search-input" type="" name="" placeholder="Search">
+				<button class="search-btn"><img src="/search.f888ef0d.png"></button>
+			</div>
 		</div>
-		<button id="add-new-book" onclick="openAddPage()">add new book</button>
+		<div class="add-btn">
+			<button data-open-button="#add-book-page" id="add-new-book" onclick="openAddPage()"><i class="fa-solid fa-plus"></i>add book</button>
+		</div>
 	</div>
-	<div id="add-book-page" class="add-book-page">
+	<div id="add-book-page" class="add-book-page active">
 		<div class="popup">
-			<h2 class="">Add Book</h2>
-			<div>
+			<h2 class="form-title">Add Book</h2>
+			<div class="field">
 				<label class="">Title</label>
-				<input id="add-title" type="" name="" placeholder="Title">
+				<div>
+					<input id="add-title" type="" name="" placeholder="Title">
+				</div>
 			</div>
-			<div>
+			<div class="field">
 				<label class="">Description</label>
-				<textarea id="add-des" placeholder="Desciption"></textarea>
+				<div>
+					<textarea id="add-des" placeholder="Desciption"></textarea>
+				</div>
 			</div>
-			<div>
+			<div class="field">
 				<label>Categories</label>
-				<select id="add-cate" name="category">
-					<option value="Cooking">Cooking</option>
-					<option value="Comic">Comic</option>
-					<option value="Horror">Horror</option>
-					<option value="Business">Business</option>
-				</select>
+				<div>
+					<select id="add-cate" name="category">
+						<option value="Cooking">Cooking</option>
+						<option value="Comic">Comic</option>
+						<option value="Horror">Horror</option>
+						<option value="Business">Business</option>
+					</select>
+				</div>
 			</div>
-			<div>
+			<div class="field">
 				<label class="Author">Author</label>
-				<input id="add-author" type="" name="" placeholder="Author">
+				<div>
+					<input id="add-author" type="" name="" placeholder="Author">
+				</div>
 			</div>
-			<div>
+			<div class="field">
 				<label class="img-link">Image Link</label>
-				<input id="add-img" type="" name="">
+				<div>
+					<input id="add-img" type="" name="">
+				</div>
 			</div>
-			<button id="submit" onclick="submitBook()">OK</button>
+			<div class="btn">
+				<button data-close-button="" class="submit" id="submit" onclick="submitBook()">OK</button>
+				<button data-close-button="" class="close" onclick="submitBook()">Close</button>
+			</div>
+		</div>
 	</div>
-	</div>
-		<div id="booklist">
-
+	<div class="overlay" id="overlay"></div>
+	<div id="booklist">
 	</div>
 	<script type="text/javascript">let addBook = document.getElementById("add-book-page");
 function openAddPage() {
     addBook.classList.add("open-add-page");
+    document.getElementById("overlay").style.opacity = 1;
 }
 function submitBook() {
     addBook.classList.remove("open-add-page");
+    document.getElementById("overlay").style.opacity = 0;
 }
 
 </script>

@@ -4,6 +4,7 @@ export default class View{
 		this.inputAuthor = document.getElementById('add-author')
 		this.inputDescription = document.getElementById('add-des')
 		this.inputImg = document.getElementById('add-img')
+		this.inputCate = document.getElementById('add-cate')
 		this.booklist = document.getElementById("booklist")
 		this.addBtn = document.getElementById("submit")
 	}
@@ -51,7 +52,12 @@ export default class View{
 	bindAddBook(handler){
 		this.addBtn.addEventListener('click', e => {
             e.preventDefault()
-                    handler(this.inputTitle.value,this.inputAuthor.value, this.inputDescription.value)   
+                    handler(this.inputTitle.value,
+                    	this.inputAuthor.value, 
+                    	this.inputDescription.value,
+                    	this.inputCate.value,
+                    	this.inputImg.value
+                    	)   
         })
 	}
 

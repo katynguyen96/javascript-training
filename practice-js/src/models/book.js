@@ -18,12 +18,13 @@ export default class Model{
 	 * @param {string} image 
      */
 	//Add book
-	async addBook(title, author, description, image){
+	async addBook(title, author, description, category, image){
 		await fetch.create(`/${path.PATH}`,{
 			id: new Date().getTime().toString(),
 			title: title,
 			author: author,
 			description: description,
+			category: category,
 			image: image,
 		})
 		// this.books.push()
