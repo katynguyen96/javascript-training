@@ -137,4 +137,51 @@
   inset: 0;
 }
 
+.render {
+  margin-top: 50px;
+  margin-left: 60px;
+  display: flex;
+}
+
+.filter {
+  display: flex;
+}
+
+.booklist {
+  width: 800px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-left: 200px;
+  display: flex;
+}
+
+.card-book {
+  width: 200px;
+  height: 350px;
+  margin-left: 10px;
+}
+
+.book-img {
+  width: 150px;
+  height: 220px;
+  background-size: cover;
+}
+
+.book-author {
+  display: none;
+}
+
+.book-title {
+  margin-top: 10px;
+  font-size: 15px;
+}
+
+.book-des {
+  margin-top: 5px;
+}
+
+.delete-btn {
+  margin-top: 7px;
+}
+
 /*# sourceMappingURL=index.599ca509.css.map */
