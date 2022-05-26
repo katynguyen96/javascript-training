@@ -3,13 +3,13 @@ export default class Controller{
 		this.model = model
 		this.view = view
 
-		this.model.bindBookListChanged(this.onBookListChanged)
+		this.view.bindBookListChanged(this.onBookListChanged)
 		this.view.bindAddBook(this.handleAddBook)
 		this.view.bindDeleteBook(this.handleDeleteBook)
-		this.onBookListChanged(this.model.books)
+		this.onBookListChanged(this.model.getBook)
 	}
 
-	onBookListChanged = (books) =>{
+	onBookListChanged = books =>{
 		this.view.display(books)
 	}
 

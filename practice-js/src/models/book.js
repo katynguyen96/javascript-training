@@ -5,8 +5,13 @@ export default class Model{
 		this.books = []
 	}
 
-	bindBookListChanged(callback){
-		this.onBookListChanged = callback
+	/**
+   * Use API url from fetch import in read data
+   * @returns {array} books.
+   */
+	async getBook(){
+		const book = await fetch.get(`/${path.PATH}`)
+        return book
 	}
 
 	/**
@@ -17,6 +22,7 @@ export default class Model{
 	 * @param {string} description
 	 * @param {string} image 
      */
+
 	//Add book
 	async addBook(title, author, description, category, image){
 		await fetch.create(`/${path.PATH}`,{
@@ -27,25 +33,16 @@ export default class Model{
 			category: category,
 			image: image,
 		})
-		// this.books.push()
 	}
 
-	/**
-   * Use API url from fetch import in read data
-   * @returns {array} books.
-   */
-	async getBook(){
-		const book = await fetch.get(`/${path.PATH}`)
-		return book
-	}
 
 	/**
-     * 
+     * Use API url from fetch import and param id from controller in delete todo
      * @param {string} id 
      */
 
-	deleteBook(id) {
-        this.books = this.books.filter(books => books.id !== id)
+    async deleteBook(id) {
+        await fetch.remove(`/${path.PATH}/${id}`)
     }
 }
 
