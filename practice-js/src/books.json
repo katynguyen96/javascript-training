@@ -22,22 +22,6 @@
       "description": "Test",
       "category": "Cooking",
       "image": "https://upload.wikimedia.org/wikipedia/en/thumb/a/a2/The_7_Habits_of_Highly_Effective_People.jpg/220px-The_7_Habits_of_Highly_Effective_People.jpg"
-    },
-    {
-      "id": "1653557932695",
-      "title": "555555",
-      "author": "6666",
-      "description": "6666",
-      "category": "Cooking",
-      "image": "6666"
-    },
-    {
-      "id": "1653558025016",
-      "title": "5559999",
-      "author": "11111",
-      "description": "5555",
-      "category": "Cooking",
-      "image": "5555"
     }
   ]
 }

@@ -35,7 +35,6 @@ export default class Model{
 		})
 	}
 
-
 	/**
      * Use API url from fetch import and param id from controller in delete todo
      * @param {string} id 
@@ -43,6 +42,22 @@ export default class Model{
 
     async deleteBook(id) {
         await fetch.remove(`/${path.PATH}/${id}`)
+    }
+
+    /**
+     * Use API url from fetch import and param id from controller in update todo
+     * @param {string} id 
+     * @param {string} updateText 
+     */
+    async updateBook(id, updateTitle, updateAuthor, updateDes, updateCate, updateImg) {
+        await fetch.update(`/${path.PATH}/${id}`, {
+            id: id,
+            title: updateTitle,
+            author: updateAuthor,
+            description: updateDes,
+            category: updateCate,
+            image: updateImg
+        })
     }
 }
 
