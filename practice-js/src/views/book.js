@@ -66,6 +66,74 @@ export default class View{
         })
 	}
 
+	editBook(book){
+		const eidt = document.getElementById('update-form')
+		update.className = 'update-form'
+		update.style.display = 'none'
+
+		const popup = document.createElement('div')
+		popup.className = 'popup'
+
+		const editTitle = document.createElement('h2')
+		editTitle.className = 'form-title'
+		editTitle.textContent = 'Update Book'
+
+		const updateFieldTT = document.createElement('div')
+		updateFieldTT.className = 'field'
+
+		const updateFieldDes = document.createElement('div')
+		updateFieldDes.className = 'field'
+
+		const updateFieldCate = document.createElement('div')
+		updateFieldCate.className = 'field'
+
+		const updateFieldAu = document.createElement('div')
+		updateFieldAu.className = 'field'
+
+		const updateFieldImg = document.createElement('div')
+		updateFieldImg.className = 'field'
+
+		const labelUpdateTT = document.createElement('label')
+		labelUpdateTT.textContent = 'Title'
+		const inputUpdateTT = document.createElement('input')
+		inputUpdateTT.className = 'update-title'
+
+		const labelUpdateDes = document.createElement('label')
+		labelUpdateDes.textContent = 'Description'
+		const inputUpdateDes = document.createElement('textarea')
+		inputUpdateDes.className = 'update-des'
+
+		const labelUpdateCate = document.createElement('label')
+		labelUpdateCate.textContent = 'Categories'
+		const inputUpdateCate = document.createElement('select')
+		inputUpdateCate.className = 'update-cate'
+
+		const labelUpdateAu = document.createElement('label')
+		labelUpdateAu.textContent = 'Author'
+		const inputUpdateAu = document.createElement('input')
+		inputUpdateAu.className = 'update-author'
+
+		const labelUpdateImg = document.createElement('label')
+		labelUpdateTmg.textContent = 'Image Link'
+		const inputUpdateImg = document.createElement('input')
+		inputUpdateImg.className = 'update-image'
+
+		const btnUpdate = document.createElement('button')
+		btnUpdate.textContent = 'Update'
+		btnUpdate.className = 'btn-update'
+
+		const btnClose = document.createElement('button')
+		btnClose.textContent = 'Close'
+		btnClose.className = "btn-close"
+
+		updateFieldTT.append(labelUpdateTT, inputUpdateTT)
+		updateFieldDes.append(labelUpdateDes, inputUpdateDes)
+		updateFieldCate.append(labelUpdateCate, inputUpdateCate)
+		updateFieldAu.append(labelUpdateAu, inputUpdateAu)
+		updateFieldImg.append(labelUpdateImg, inputUpdateImg)
+
+	}
+
 	bindDeleteBook(handler) {
         this.booklist.addEventListener('click', e => {
             // e.preventDefault()
