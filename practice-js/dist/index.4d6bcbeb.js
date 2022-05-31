@@ -533,8 +533,8 @@ var _bookJs1 = require("./models/book.js");
 var _bookJsDefault1 = parcelHelpers.interopDefault(_bookJs1);
 var _bookJs2 = require("./views/book.js");
 var _bookJsDefault2 = parcelHelpers.interopDefault(_bookJs2);
-const model = new _bookJsDefault1.default(), view = new _bookJsDefault2.default(model);
-const app = new _bookJsDefault.default(model, view);
+const controller = new _bookJsDefault.default(new _bookJsDefault1.default(), new _bookJsDefault2.default());
+controller.init();
 
 },{"./controllers/book.js":"dkA5j","./models/book.js":"b4yEX","./views/book.js":"8rls2","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dkA5j":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -543,19 +543,30 @@ class Controller {
     constructor(model, view){
         this.model = model;
         this.view = view;
-        this.view.bindBookListChanged(this.onBookListChanged);
+        this.model.bindBookListChanged(this.onBookListChanged);
         this.view.bindAddBook(this.handleAddBook);
         this.view.bindDeleteBook(this.handleDeleteBook);
         this.onBookListChanged(this.model.getBook);
+        this.view.bindUpdateBook(this.handleUpdateBook);
     }
+    init = async ()=>{
+        const books = await this.model.getBook();
+        this.view.display(books);
+    };
     onBookListChanged = (books)=>{
         this.view.display(books);
     };
-    handleAddBook = (title, author, description, category, image)=>{
-        this.model.addBook(title, author, description, category, image);
+    handleAddBook = async (title, author, description, category, image)=>{
+        const books = await this.model.addBook(title, author, description, category, image);
+        this.view.display(books);
     };
-    handleDeleteBook = (id)=>{
-        this.model.deleteBook(id);
+    handleUpdateBook = async (id, title, author, description, category, image)=>{
+        const books = await this.model.updateBook(id, title, author, description, category, image);
+        this.view.display(books);
+    };
+    handleDeleteBook = async (id)=>{
+        const books = await this.model.deleteBook(id);
+        this.view.display(books);
     };
 }
 exports.default = Controller;
@@ -598,16 +609,21 @@ var _serviceDefault = parcelHelpers.interopDefault(_service);
 var _constant = require("../constant");
 var _constantDefault = parcelHelpers.interopDefault(_constant);
 class Model {
+    books = [];
     constructor(){
-        this.books = [];
+    // this.books = []
+    }
+    bindBookListChanged(callback) {
+        this.onBookListChanged = callback;
     }
     /**
    * Use API url from fetch import in read data
    * @returns {array} books.
-   */ async getBook() {
+   */ getBook = async ()=>{
         const book = await _serviceDefault.default.get(`/${_constantDefault.default.PATH}`);
+        this.books = book;
         return book;
-    }
+    };
     /**
      * 
      * @param {number} id
@@ -616,36 +632,49 @@ class Model {
 	 * @param {string} description
 	 * @param {string} image 
      */ //Add book
-    async addBook(title, author, description, category, image) {
-        await _serviceDefault.default.create(`/${_constantDefault.default.PATH}`, {
+    addBook = async (title, author, description, category, image)=>{
+        const bookAdded = {
             id: new Date().getTime().toString(),
             title: title,
             author: author,
             description: description,
             category: category,
             image: image
-        });
-    }
+        };
+        this.books.push(bookAdded);
+        await _serviceDefault.default.create(`/${_constantDefault.default.PATH}`, bookAdded);
+        return this.books;
+    };
     /**
      * Use API url from fetch import and param id from controller in delete todo
      * @param {string} id 
-     */ async deleteBook(id) {
-        await _serviceDefault.default.remove(`/${_constantDefault.default.PATH}/${id}`);
-    }
+     */ deleteBook = async (id)=>{
+        const index = this.books.findIndex((item)=>item.id === id
+        );
+        const book = this.books[index];
+        this.books.splice(index, 1);
+        await _serviceDefault.default.remove(`/${_constantDefault.default.PATH}/${id}`, book);
+        return this.books;
+    };
     /**
      * Use API url from fetch import and param id from controller in update todo
      * @param {string} id 
-     * @param {string} updateText 
-     */ async updateBook(id, updateTitle, updateAuthor, updateDes, updateCate, updateImg) {
-        await _serviceDefault.default.update(`/${_constantDefault.default.PATH}/${id}`, {
-            id: id,
+     * @param {string} updateTitle 
+     */ updateBook = async (id, updateTitle, updateAuthor, updateDes, updateCate, updateImg)=>{
+        const index = this.books.findIndex((item)=>item.id === id
+        );
+        const bookUpdate = {
+            id,
             title: updateTitle,
             author: updateAuthor,
             description: updateDes,
             category: updateCate,
             image: updateImg
-        });
-    }
+        };
+        this.books.splice(index, 1, bookUpdate);
+        await _serviceDefault.default.update(`/${_constantDefault.default.PATH}/${id}`, bookUpdate);
+        return this.books;
+    };
 }
 exports.default = Model;
 
@@ -754,11 +783,15 @@ class View {
         this.inputImg = document.getElementById('add-img');
         this.inputCate = document.getElementById('add-cate');
         this.booklist = document.getElementById('booklist');
+        this.updateForm = document.getElementById('update-form');
         this.addBtn = document.getElementById("submit");
+        this.formUpdate = document.getElementById('update-form');
     }
-    display(getBook) {
-        getBook().then((book1)=>{
-            if (book1.length !== 0) book1.forEach((book)=>{
+    display(books) {
+        if (books.length !== 0) {
+            const wrapper = document.getElementsByClassName("booklist");
+            wrapper[0].innerHTML = "";
+            books.forEach((book)=>{
                 // console.log(book)
                 const cardBook = document.createElement("div");
                 cardBook.id = book.id;
@@ -784,10 +817,19 @@ class View {
                 const btnEdit = document.createElement("button");
                 btnEdit.className = "edit-btn";
                 btnEdit.textContent = "Edit";
+                btnEdit.addEventListener('click', ()=>{
+                    const overlay = document.getElementById('overlay');
+                    const updateForm = document.getElementById("update-form");
+                    this.editBook(booklist);
+                    updateForm.style.visibility = "visible";
+                    overlay.style.opacity = "1";
+                // updateForm.style.opacity = '1'
+                });
+                const formUpdate = document.getElementById("update-form");
                 cardBook.append(img, bookBody, btnDelete, btnEdit);
                 this.booklist.appendChild(cardBook);
             });
-        });
+        }
     }
     bindAddBook(handler) {
         this.addBtn.addEventListener('click', (e)=>{
@@ -795,12 +837,15 @@ class View {
             handler(this.inputTitle.value, this.inputAuthor.value, this.inputDescription.value, this.inputCate.value, this.inputImg.value);
         });
     }
-    editBook(book) {
-        const eidt = document.getElementById('update-form');
+    editBook(booklist) {
+        const update = document.getElementById('update-form');
         update.className = 'update-form';
-        update.style.display = 'none';
+        // update.id = booklist.id
+        // update.style.opacity = '0'
         const popup = document.createElement('div');
         popup.className = 'popup';
+        update.style.visibility = 'hidden';
+        popup.id = 'popup';
         const editTitle = document.createElement('h2');
         editTitle.className = 'form-title';
         editTitle.textContent = 'Update Book';
@@ -818,45 +863,108 @@ class View {
         labelUpdateTT.textContent = 'Title';
         const inputUpdateTT = document.createElement('input');
         inputUpdateTT.className = 'update-title';
+        inputUpdateTT.id = 'update-title';
         const labelUpdateDes = document.createElement('label');
         labelUpdateDes.textContent = 'Description';
         const inputUpdateDes = document.createElement('textarea');
         inputUpdateDes.className = 'update-des';
+        inputUpdateDes.id = 'update-des';
         const labelUpdateCate = document.createElement('label');
         labelUpdateCate.textContent = 'Categories';
         const inputUpdateCate = document.createElement('select');
         inputUpdateCate.className = 'update-cate';
+        let option = document.createElement('option');
+        option.value = "Cooking";
+        option.text = "Cooking";
+        let option1 = document.createElement('option');
+        option1.value = "Comic";
+        option1.text = "Comic";
+        // inputUpdateCate.add(option1)
+        let option2 = document.createElement('option');
+        option2.value = "Horror";
+        option2.text = "Horror";
+        // inputUpdateCate.add(option2)
+        let option3 = document.createElement('option');
+        option3.value = "Bussiness";
+        option3.text = "Bussiness";
+        // inputUpdateCate.add()
+        inputUpdateCate.add(option);
+        inputUpdateCate.id = 'update-cate';
         const labelUpdateAu = document.createElement('label');
         labelUpdateAu.textContent = 'Author';
         const inputUpdateAu = document.createElement('input');
         inputUpdateAu.className = 'update-author';
+        inputUpdateAu.id = 'update-author';
         const labelUpdateImg = document.createElement('label');
-        labelUpdateTmg.textContent = 'Image Link';
+        labelUpdateImg.textContent = 'Image Link';
         const inputUpdateImg = document.createElement('input');
         inputUpdateImg.className = 'update-image';
+        inputUpdateImg.id = 'update-image';
         const btnUpdate = document.createElement('button');
         btnUpdate.textContent = 'Update';
         btnUpdate.className = 'btn-update';
+        btnUpdate.addEventListener('click', ()=>{
+            const overlay = document.getElementById('overlay');
+            const updateForm = document.getElementById('update-form');
+            const updateBtn = document.getElementById('update-form-btn');
+            updateForm.style.visibility = 'hidden';
+            overlay.style.opacity = '0';
+        });
         const btnClose = document.createElement('button');
         btnClose.textContent = 'Close';
         btnClose.className = "btn-close";
+        btnClose.addEventListener('click', ()=>{
+            const overlay = document.getElementById('overlay');
+            const updateForm = document.getElementById('update-form');
+            const updateBtn = document.getElementById('update-form-btn');
+            updateForm.style.visibility = 'hidden';
+            overlay.style.opacity = '0';
+            popup.remove();
+            updateBtn.remove();
+        });
         updateFieldTT.append(labelUpdateTT, inputUpdateTT);
         updateFieldDes.append(labelUpdateDes, inputUpdateDes);
         updateFieldCate.append(labelUpdateCate, inputUpdateCate);
         updateFieldAu.append(labelUpdateAu, inputUpdateAu);
         updateFieldImg.append(labelUpdateImg, inputUpdateImg);
+        const btn = document.createElement('div');
+        btn.className = "update-form-btn";
+        btn.id = "update-form-btn";
+        btn.append(btnUpdate, btnClose);
+        popup.append(editTitle, updateFieldTT, updateFieldDes, updateFieldCate, updateFieldAu, updateFieldImg);
+        update.append(popup, btn);
+    }
+    bindUpdateBook(handler) {
+        this.booklist.addEventListener('click', (e1)=>{
+            if (e1.target.className === 'edit-btn') {
+                const id = e1.target.parentElement.id;
+                // console.log(id)
+                this.formUpdate.addEventListener('click', (e)=>{
+                    this.updateTitle = document.getElementById('update-title');
+                    this.updateAuthor = document.getElementById('update-author');
+                    this.updateDes = document.getElementById('update-des');
+                    this.updateImg = document.getElementById('update-image');
+                    this.updateCate = document.getElementById('update-cate');
+                    if (e.target.className === 'btn-update') {
+                        console.log(id);
+                        handler(id, this.updateTitle.value, this.updateAuthor.value, this.updateDes.value, this.updateCate.value, this.updateImg.value);
+                        const popup = document.getElementById('popup');
+                        popup.remove();
+                        const updateForm = document.getElementById('update-form-btn');
+                        updateForm.remove();
+                    }
+                });
+            }
+        });
     }
     bindDeleteBook(handler) {
         this.booklist.addEventListener('click', (e)=>{
             // e.preventDefault()
             if (e.target.className === 'delete-btn') {
-                const id = parseInt(e.target.parentElement.id);
+                const id = e.target.parentElement.id;
                 handler(id);
             }
         });
-    }
-    bindBookListChanged(callback) {
-        this.onBookListChanged = callback;
     }
 }
 exports.default = View;

@@ -1,16 +1,22 @@
 import fetch from '../helpers/service'
 import path from '../constant'
 export default class Model{
+    books = []
 	constructor(){
-		this.books = []
+		// this.books = []
 	}
+
+    bindBookListChanged(callback){
+        this.onBookListChanged = callback
+    }
 
 	/**
    * Use API url from fetch import in read data
    * @returns {array} books.
    */
-	async getBook(){
+     getBook = async()=>{
 		const book = await fetch.get(`/${path.PATH}`)
+        this.books = book
         return book
 	}
 
@@ -24,15 +30,18 @@ export default class Model{
      */
 
 	//Add book
-	async addBook(title, author, description, category, image){
-		await fetch.create(`/${path.PATH}`,{
+    addBook = async(title, author, description, category, image) =>{
+        const bookAdded = {
 			id: new Date().getTime().toString(),
 			title: title,
 			author: author,
 			description: description,
 			category: category,
 			image: image,
-		})
+		}
+        this.books.push(bookAdded)
+        await fetch.create(`/${path.PATH}`, bookAdded)
+        return this.books
 	}
 
 	/**
@@ -40,24 +49,32 @@ export default class Model{
      * @param {string} id 
      */
 
-    async deleteBook(id) {
-        await fetch.remove(`/${path.PATH}/${id}`)
+     deleteBook = async(id) => {
+        const index = this.books.findIndex(item => item.id === id)
+        const book = this.books[index]
+        this.books.splice(index, 1)
+        await fetch.remove(`/${path.PATH}/${id}`, book)
+        return this.books
     }
 
     /**
      * Use API url from fetch import and param id from controller in update todo
      * @param {string} id 
-     * @param {string} updateText 
+     * @param {string} updateTitle 
      */
-    async updateBook(id, updateTitle, updateAuthor, updateDes, updateCate, updateImg) {
-        await fetch.update(`/${path.PATH}/${id}`, {
-            id: id,
+    updateBook = async(id, updateTitle, updateAuthor, updateDes, updateCate, updateImg) =>{
+        const index = this.books.findIndex(item => item.id===id)
+        const bookUpdate =  {
+            id,
             title: updateTitle,
             author: updateAuthor,
             description: updateDes,
             category: updateCate,
             image: updateImg
-        })
+         }
+        this.books.splice(index, 1, bookUpdate)
+        await fetch.update(`/${path.PATH}/${id}`, bookUpdate)
+        return this.books
     }
 }
 

@@ -130,6 +130,11 @@
 	visibility: visible;
 }
 
+.open-update-page{
+	opacity: 1;
+	visibility: visible;
+}
+
 .overlay{
 	position: fixed;
   	opacity: 0;
@@ -187,4 +192,28 @@
 
 .delete-btn {
 	margin-top: 7px;
+}
+
+
+.update-form{
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	display: flex;
+	flex-direction: column;
+	border: 2px #BABABA solid;
+	z-index: 10;
+	border-radius: 6px;
+	width: 350px;
+	margin: auto;
+	background-color: white;
+}
+
+.update-form-btn {
+	margin-left: 20px;
+	margin-top: 15px;
+	display: flex;
+	width: 300px;
+	justify-content: space-between;
 }
