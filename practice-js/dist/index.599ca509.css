@@ -124,7 +124,7 @@
   margin-bottom: 10px;
 }
 
-.open-add-page {
+.open-add-page, .open-update-page {
   opacity: 1;
   visibility: visible;
 }
@@ -182,6 +182,29 @@
 
 .delete-btn {
   margin-top: 7px;
+}
+
+.update-form {
+  z-index: 10;
+  width: 350px;
+  background-color: #fff;
+  border: 2px solid #bababa;
+  border-radius: 6px;
+  flex-direction: column;
+  margin: auto;
+  display: flex;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.update-form-btn {
+  width: 300px;
+  justify-content: space-between;
+  margin-top: 15px;
+  margin-left: 20px;
+  display: flex;
 }
 
 /*# sourceMappingURL=index.599ca509.css.map */
