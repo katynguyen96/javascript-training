@@ -546,6 +546,8 @@ class Controller {
         this.model.bindBookListChanged(this.onBookListChanged);
         this.view.bindAddBook(this.handleAddBook);
         this.view.bindDeleteBook(this.handleDeleteBook);
+        this.view.bindSearchBook(this.handleSearchBook);
+        this.view.bindFilterBook(this.handleFilterBook);
         this.onBookListChanged(this.model.getBook);
         this.view.bindUpdateBook(this.handleUpdateBook);
     }
@@ -566,6 +568,14 @@ class Controller {
     };
     handleDeleteBook = async (id)=>{
         const books = await this.model.deleteBook(id);
+        this.view.display(books);
+    };
+    handleSearchBook = async (title)=>{
+        const books = await this.model.searchBook(title);
+        this.view.display(books);
+    };
+    handleFilterBook = async (category)=>{
+        const books = await this.model.filterBook(category);
         this.view.display(books);
     };
 }
@@ -674,6 +684,16 @@ class Model {
         this.books.splice(index, 1, bookUpdate);
         await _serviceDefault.default.update(`/${_constantDefault.default.PATH}/${id}`, bookUpdate);
         return this.books;
+    };
+    searchBook = async (title)=>{
+        const book = await _serviceDefault.default.get(`/${_constantDefault.default.PATH}?q=${title}`);
+        this.books = book;
+        return book;
+    };
+    filterBook = async (category)=>{
+        const book = await _serviceDefault.default.get(`/${_constantDefault.default.PATH}?category=${category}`);
+        this.books = book;
+        return book;
     };
 }
 exports.default = Model;
@@ -786,6 +806,9 @@ class View {
         this.updateForm = document.getElementById('update-form');
         this.addBtn = document.getElementById("submit");
         this.formUpdate = document.getElementById('update-form');
+        this.search = document.getElementById('search-btn');
+        this.inputSearch = document.getElementById('search-input');
+        this.checkCate = document.getElementsByClassName('check');
     }
     display(books) {
         if (books.length !== 0) {
@@ -939,12 +962,12 @@ class View {
             if (e1.target.className === 'edit-btn') {
                 const id = e1.target.parentElement.id;
                 // console.log(id)
+                this.updateTitle = document.getElementById('update-title');
+                this.updateAuthor = document.getElementById('update-author');
+                this.updateDes = document.getElementById('update-des');
+                this.updateImg = document.getElementById('update-image');
+                this.updateCate = document.getElementById('update-cate');
                 this.formUpdate.addEventListener('click', (e)=>{
-                    this.updateTitle = document.getElementById('update-title');
-                    this.updateAuthor = document.getElementById('update-author');
-                    this.updateDes = document.getElementById('update-des');
-                    this.updateImg = document.getElementById('update-image');
-                    this.updateCate = document.getElementById('update-cate');
                     if (e.target.className === 'btn-update') {
                         console.log(id);
                         handler(id, this.updateTitle.value, this.updateAuthor.value, this.updateDes.value, this.updateCate.value, this.updateImg.value);
@@ -963,6 +986,20 @@ class View {
             if (e.target.className === 'delete-btn') {
                 const id = e.target.parentElement.id;
                 handler(id);
+            }
+        });
+    }
+    bindSearchBook(handler) {
+        this.search.addEventListener('click', ()=>{
+            if (this.inputSearch.vale !== "") handler(this.inputSearch.value);
+        });
+    }
+    bindFilterBook(handler) {
+        // console.log(this.checkCate)
+        for (let check of this.checkCate)check.addEventListener('click', ()=>{
+            if (check.checked) {
+                console.log(check.value);
+                handler(check.value);
             }
         });
     }
