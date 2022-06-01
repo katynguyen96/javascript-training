@@ -76,5 +76,17 @@ export default class Model{
         await fetch.update(`/${path.PATH}/${id}`, bookUpdate)
         return this.books
     }
+
+    searchBook = async(title)=>{
+        const book = await fetch.get(`/${path.PATH}?q=${title}`)
+        this.books = book
+        return book
+    }
+
+    filterBook = async(category) =>{
+        const book = await fetch.get(`/${path.PATH}?category=${category}`)
+        this.books = book
+        return book
+    }
 }
 

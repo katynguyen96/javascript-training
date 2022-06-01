@@ -6,6 +6,8 @@ export default class Controller{
 		this.model.bindBookListChanged(this.onBookListChanged)
 		this.view.bindAddBook(this.handleAddBook)
 		this.view.bindDeleteBook(this.handleDeleteBook)
+		this.view.bindSearchBook(this.handleSearchBook)
+		this.view.bindFilterBook(this.handleFilterBook)
 		this.onBookListChanged(this.model.getBook)
 		this.view.bindUpdateBook(this.handleUpdateBook)
 	}
@@ -32,5 +34,15 @@ export default class Controller{
 	handleDeleteBook = async id => {
         const books = await this.model.deleteBook(id)
         this.view.display(books)
+    }
+
+    handleSearchBook = async title => {
+    	const books = await this.model.searchBook(title)
+    	this.view.display(books)
+    }
+
+    handleFilterBook = async category =>{
+    	const books = await this.model.filterBook(category)
+    	this.view.display(books)
     }
 }

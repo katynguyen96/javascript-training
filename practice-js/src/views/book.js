@@ -9,6 +9,9 @@ export default class View{
 		this.updateForm = document.getElementById('update-form')
 		this.addBtn = document.getElementById("submit")
 		this.formUpdate = document.getElementById('update-form')
+		this.search = document.getElementById('search-btn')
+		this.inputSearch = document.getElementById('search-input')
+		this.checkCate = document.getElementsByClassName('check')
 	}
 
 	display(books){
@@ -204,12 +207,12 @@ export default class View{
 			if(e.target.className === 'edit-btn'){
 				const id = e.target.parentElement.id
 				// console.log(id)
+				this.updateTitle = document.getElementById('update-title')
+				this.updateAuthor = document.getElementById('update-author')
+				this.updateDes = document.getElementById('update-des')
+				this.updateImg = document.getElementById('update-image')
+				this.updateCate = document.getElementById('update-cate')
 				this.formUpdate.addEventListener('click',e=>{
-					this.updateTitle = document.getElementById('update-title')
-					this.updateAuthor = document.getElementById('update-author')
-					this.updateDes = document.getElementById('update-des')
-					this.updateImg = document.getElementById('update-image')
-					this.updateCate = document.getElementById('update-cate')
 					if(e.target.className === 'btn-update'){
 						console.log(id)
 						handler(id, 
@@ -236,5 +239,26 @@ export default class View{
                 handler(id)
             }
         })
+    }
+
+    bindSearchBook(handler){
+    	this.search.addEventListener('click',() => {
+    		if(this.inputSearch.vale !== ""){
+    			handler(this.inputSearch.value)
+    		}
+    	})
+    }
+
+    bindFilterBook(handler){
+    	// console.log(this.checkCate)
+    	for(let check of this.checkCate){
+    		check.addEventListener('click', ()=>{
+    			if(check.checked){
+    				console.log(check.value)
+    				handler(check.value)
+    			}
+    		})
+    	}
+
     }
 }
