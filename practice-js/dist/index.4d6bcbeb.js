@@ -810,12 +810,17 @@ class View {
         this.inputSearch = document.getElementById('search-input');
         this.checkCate = document.getElementsByClassName('check');
     }
+    _resetInput() {
+        this.inputTitle.value = "";
+        this.inputAuthor.value = "";
+        this.inputDescription.value = "";
+        this.inputImg.value = "";
+    }
     display(books) {
         if (books.length !== 0) {
             const wrapper = document.getElementsByClassName("booklist");
             wrapper[0].innerHTML = "";
             books.forEach((book)=>{
-                // console.log(book)
                 const cardBook = document.createElement("div");
                 cardBook.id = book.id;
                 cardBook.className = "card-book";
@@ -835,20 +840,24 @@ class View {
                 author.textContent = book.author;
                 bookBody.append(title, author, des);
                 const btnDelete = document.createElement("button");
+                const icon1 = document.createElement("i");
+                icon1.className = "fa-solid fa-trash-can";
                 btnDelete.className = "delete-btn";
                 btnDelete.textContent = "Delete";
+                btnDelete.append(icon1);
                 const btnEdit = document.createElement("button");
                 btnEdit.className = "edit-btn";
+                const icon = document.createElement("i");
+                icon.className = "fa-solid fa-pen";
                 btnEdit.textContent = "Edit";
+                btnEdit.append(icon);
                 btnEdit.addEventListener('click', ()=>{
                     const overlay = document.getElementById('overlay');
                     const updateForm = document.getElementById("update-form");
-                    this.editBook(booklist);
+                    this.editBook(cardBook);
                     updateForm.style.visibility = "visible";
                     overlay.style.opacity = "1";
-                // updateForm.style.opacity = '1'
                 });
-                const formUpdate = document.getElementById("update-form");
                 cardBook.append(img, bookBody, btnDelete, btnEdit);
                 this.booklist.appendChild(cardBook);
             });
@@ -858,13 +867,17 @@ class View {
         this.addBtn.addEventListener('click', (e)=>{
             // e.preventDefault()
             handler(this.inputTitle.value, this.inputAuthor.value, this.inputDescription.value, this.inputCate.value, this.inputImg.value);
+            this._resetInput();
         });
     }
-    editBook(booklist) {
+    editBook(books) {
         const update = document.getElementById('update-form');
         update.className = 'update-form';
-        // update.id = booklist.id
+        console.log(books.id);
         // update.style.opacity = '0'
+        const wrapper = document.createElement('div');
+        wrapper.className = 'wrapper';
+        // wrapper.id = book.id
         const popup = document.createElement('div');
         popup.className = 'popup';
         update.style.visibility = 'hidden';
@@ -902,15 +915,15 @@ class View {
         let option1 = document.createElement('option');
         option1.value = "Comic";
         option1.text = "Comic";
-        // inputUpdateCate.add(option1)
+        inputUpdateCate.add(option1);
         let option2 = document.createElement('option');
         option2.value = "Horror";
         option2.text = "Horror";
-        // inputUpdateCate.add(option2)
+        inputUpdateCate.add(option2);
         let option3 = document.createElement('option');
         option3.value = "Bussiness";
         option3.text = "Bussiness";
-        // inputUpdateCate.add()
+        inputUpdateCate.add(option3);
         inputUpdateCate.add(option);
         inputUpdateCate.id = 'update-cate';
         const labelUpdateAu = document.createElement('label');
@@ -955,7 +968,8 @@ class View {
         btn.id = "update-form-btn";
         btn.append(btnUpdate, btnClose);
         popup.append(editTitle, updateFieldTT, updateFieldDes, updateFieldCate, updateFieldAu, updateFieldImg);
-        update.append(popup, btn);
+        wrapper.append(popup, btn);
+        update.append(wrapper);
     }
     bindUpdateBook(handler) {
         this.booklist.addEventListener('click', (e1)=>{
@@ -991,15 +1005,21 @@ class View {
     }
     bindSearchBook(handler) {
         this.search.addEventListener('click', ()=>{
+            if (this.inputSearch.value === "") alert("Enter the book name you want to find");
             if (this.inputSearch.vale !== "") handler(this.inputSearch.value);
         });
     }
     bindFilterBook(handler) {
-        // console.log(this.checkCate)
         for (let check of this.checkCate)check.addEventListener('click', ()=>{
             if (check.checked) {
                 console.log(check.value);
+                // const a = check.value
                 handler(check.value);
+            // if(check.checked !== false){
+            // 	check.value = ""
+            // 	handler(check.value)
+            // 	check.value = a
+            // }
             }
         });
     }
