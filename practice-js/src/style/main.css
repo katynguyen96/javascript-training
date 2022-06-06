@@ -146,6 +146,11 @@
   	pointer-events: none;
 }
 
+.list-book{
+	position: absolute;
+	top: 110px;
+	left: 300px;
+}
 
 .render {
 	margin-top: 50px;
@@ -153,8 +158,16 @@
 	margin-left: 60px;
 }
 
-.filter{
-	display: flex;
+#filter {
+	margin-top: -50px;
+}
+
+#filter h2 {
+	margin-bottom: 10px;
+}
+
+#filter input {
+	margin-left: 15px;
 }
 
 .booklist {
@@ -163,18 +176,25 @@
 	width: 800px;
 	justify-content: space-between;
 	flex-wrap: wrap;
+	margin-top: 20px;
 }
 
 .card-book {
 	margin-left: 10px;
-	width: 200px;
-	height: 350px;
+	width: 230px;
+	height: 330px;
+	border: 1px solid;
+	box-shadow: 3px 3px #ADBABA;
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
 
 .book-img {
 	width: 150px;
 	height: 220px;
 	background-size: cover;
+	margin-left: 40px;
+	margin-top: 15px;
 }
 
 .book-author {
@@ -184,16 +204,40 @@
 .book-title{
 	margin-top: 10px;
 	font-size: 15px;
+	margin-left: 10px;
 }
 
 .book-des{
 	margin-top: 5px;
+	margin-left: 10px;
 }
 
 .delete-btn {
 	margin-top: 7px;
+	width: 90px;
+	margin-left: 30px;
+	height: 30px;
+	background-color: #ED3939;
+	border: none;
+	color: #FFF;
+	cursor: pointer;
+	font-size: 15px;
 }
 
+.edit-btn {
+	width: 70px;
+	margin-left: 10px;
+	height: 30px;
+	background-color: #FFFF4A;
+	color: #FFF;
+	cursor: pointer;
+	font-size: 15px;
+	border: none;
+}
+
+.card-book i{
+	margin-left: 5px;
+}
 
 .update-form{
 	position: fixed;
