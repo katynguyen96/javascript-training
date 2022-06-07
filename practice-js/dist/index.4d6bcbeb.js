@@ -553,6 +553,7 @@ class Controller {
     }
     init = async ()=>{
         const books = await this.model.getBook();
+        console.log("21asd", books);
         this.view.display(books);
     };
     onBookListChanged = (books)=>{
@@ -562,8 +563,8 @@ class Controller {
         const books = await this.model.addBook(title, author, description, category, image);
         this.view.display(books);
     };
-    handleUpdateBook = async (id, title, author, description, category, image)=>{
-        const books = await this.model.updateBook(id, title, author, description, category, image);
+    handleUpdateBook = async (id, book)=>{
+        const books = await this.model.updateBook(id, book);
         this.view.display(books);
     };
     handleDeleteBook = async (id)=>{
@@ -670,19 +671,14 @@ class Model {
      * Use API url from fetch import and param id from controller in update todo
      * @param {string} id 
      * @param {string} updateTitle 
-     */ updateBook = async (id, updateTitle, updateAuthor, updateDes, updateCate, updateImg)=>{
+     */ updateBook = async (id, book)=>{
         const index = this.books.findIndex((item)=>item.id === id
         );
-        const bookUpdate = {
-            id,
-            title: updateTitle,
-            author: updateAuthor,
-            description: updateDes,
-            category: updateCate,
-            image: updateImg
-        };
-        this.books.splice(index, 1, bookUpdate);
-        await _serviceDefault.default.update(`/${_constantDefault.default.PATH}/${id}`, bookUpdate);
+        console.log("index", index);
+        console.log("this.books", this.books);
+        this.books.splice(index, 1, book);
+        console.log("this.books2", this.books);
+        await _serviceDefault.default.update(`/${_constantDefault.default.PATH}/${id}`, book);
         return this.books;
     };
     searchBook = async (title)=>{
@@ -854,7 +850,7 @@ class View {
                 btnEdit.addEventListener('click', ()=>{
                     const overlay = document.getElementById('overlay');
                     const updateForm = document.getElementById("update-form");
-                    this.editBook(cardBook);
+                    this.editBook(book);
                     updateForm.style.visibility = "visible";
                     overlay.style.opacity = "1";
                 });
@@ -870,18 +866,18 @@ class View {
             this._resetInput();
         });
     }
-    editBook(books) {
+    editBook(book) {
         const update = document.getElementById('update-form');
         update.className = 'update-form';
-        console.log(books.id);
+        console.log("edit ", book);
         // update.style.opacity = '0'
         const wrapper = document.createElement('div');
         wrapper.className = 'wrapper';
         // wrapper.id = book.id
-        const popup = document.createElement('div');
-        popup.className = 'popup';
+        const popup1 = document.createElement('div');
+        popup1.className = 'popup';
         update.style.visibility = 'hidden';
-        popup.id = 'popup';
+        popup1.id = 'popup';
         const editTitle = document.createElement('h2');
         editTitle.className = 'form-title';
         editTitle.textContent = 'Update Book';
@@ -955,7 +951,7 @@ class View {
             const updateBtn = document.getElementById('update-form-btn');
             updateForm.style.visibility = 'hidden';
             overlay.style.opacity = '0';
-            popup.remove();
+            popup1.remove();
             updateBtn.remove();
         });
         updateFieldTT.append(labelUpdateTT, inputUpdateTT);
@@ -967,8 +963,8 @@ class View {
         btn.className = "update-form-btn";
         btn.id = "update-form-btn";
         btn.append(btnUpdate, btnClose);
-        popup.append(editTitle, updateFieldTT, updateFieldDes, updateFieldCate, updateFieldAu, updateFieldImg);
-        wrapper.append(popup, btn);
+        popup1.append(editTitle, updateFieldTT, updateFieldDes, updateFieldCate, updateFieldAu, updateFieldImg);
+        wrapper.append(popup1, btn);
         update.append(wrapper);
     }
     bindUpdateBook(handler) {
@@ -976,19 +972,26 @@ class View {
             if (e1.target.className === 'edit-btn') {
                 const id = e1.target.parentElement.id;
                 // console.log(id)
-                this.updateTitle = document.getElementById('update-title');
-                this.updateAuthor = document.getElementById('update-author');
-                this.updateDes = document.getElementById('update-des');
-                this.updateImg = document.getElementById('update-image');
-                this.updateCate = document.getElementById('update-cate');
+                const updateTitleElement = document.getElementById('update-title');
+                const updateAuthor = document.getElementById('update-author');
+                const updateDes = document.getElementById('update-des');
+                const updateImg = document.getElementById('update-image');
+                const updateCate = document.getElementById('update-cate');
                 this.formUpdate.addEventListener('click', (e)=>{
                     if (e.target.className === 'btn-update') {
-                        console.log(id);
-                        handler(id, this.updateTitle.value, this.updateAuthor.value, this.updateDes.value, this.updateCate.value, this.updateImg.value);
-                        const popup = document.getElementById('popup');
-                        popup.remove();
+                        const bookUpdate = {
+                            id,
+                            title: updateTitleElement.value,
+                            author: updateAuthor.value,
+                            description: updateDes.value,
+                            category: updateCate.value,
+                            image: updateImg.value
+                        };
+                        handler(id, bookUpdate);
+                        const popup2 = document.getElementById('popup');
+                        if (popup2) popup2.remove();
                         const updateForm = document.getElementById('update-form-btn');
-                        updateForm.remove();
+                        if (updateForm) updateForm.remove();
                     }
                 });
             }
@@ -1025,6 +1028,11 @@ class View {
     }
 }
 exports.default = View;
+const popup = `
+<div>
+	<p>Title</p>
+</div>`;
+inputUpdateCate.innerHtml = popup;
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["aOoxC","gLLPy"], "gLLPy", "parcelRequire09fa")
 

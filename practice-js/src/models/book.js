@@ -62,18 +62,14 @@ export default class Model{
      * @param {string} id 
      * @param {string} updateTitle 
      */
-    updateBook = async(id, updateTitle, updateAuthor, updateDes, updateCate, updateImg) =>{
-        const index = this.books.findIndex(item => item.id===id)
-        const bookUpdate =  {
-            id,
-            title: updateTitle,
-            author: updateAuthor,
-            description: updateDes,
-            category: updateCate,
-            image: updateImg
-         }
-        this.books.splice(index, 1, bookUpdate)
-        await fetch.update(`/${path.PATH}/${id}`, bookUpdate)
+    updateBook = async (id, book) =>{
+        const index = this.books.findIndex(item => item.id === id)
+        console.log("index", index)
+        console.log("this.books", this.books)
+        this.books.splice(index, 1, book)
+        console.log("this.books2", this.books)
+
+        await fetch.update(`/${path.PATH}/${id}`, book)
         return this.books
     }
 

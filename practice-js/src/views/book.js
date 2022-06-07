@@ -22,11 +22,11 @@ export default class View{
 	}
 
 	display(books){
-			if(books.length !== 0){
+			if (books.length !== 0) {
 				const wrapper = document.getElementsByClassName("booklist")
 				wrapper[0].innerHTML = ""
 
-				books.forEach(book=>{
+				books.forEach(book => {
 					const cardBook = document.createElement("div")
 					cardBook.id = book.id
 					cardBook.className = "card-book"
@@ -69,14 +69,14 @@ export default class View{
 					btnEdit.addEventListener('click',()=>{
 						const overlay = document.getElementById('overlay')
 						const updateForm = document.getElementById("update-form")
-						this.editBook(cardBook)
+						this.editBook(book)
 						updateForm.style.visibility = "visible"
 						overlay.style.opacity = "1"
 					})
 					cardBook.append(img, bookBody, btnDelete, btnEdit);
 					this.booklist.appendChild(cardBook)
 				})
-			}	
+			} 
 	}
 
 	bindAddBook(handler){
@@ -92,10 +92,10 @@ export default class View{
         })
 	}
 
-	editBook(books){
+	editBook(book){
 		const update = document.getElementById('update-form')
 		update.className = 'update-form'
-		console.log(books.id)
+		console.log("edit ", book)
 		// update.style.opacity = '0'
 		const wrapper = document.createElement('div')
 		wrapper.className = 'wrapper'
@@ -190,7 +190,7 @@ export default class View{
 		btnClose.textContent = 'Close'
 		btnClose.className = "btn-close"
 
-		btnClose.addEventListener('click',()=>{
+		btnClose.addEventListener('click',() => {
 			const overlay = document.getElementById('overlay')
 			const updateForm = document.getElementById('update-form')
 			const updateBtn = document.getElementById('update-form-btn')
@@ -218,28 +218,32 @@ export default class View{
 	}
 
 	bindUpdateBook(handler){
-		this.booklist.addEventListener('click', e=>{
+		this.booklist.addEventListener('click', e => {
 			if(e.target.className === 'edit-btn'){
 				const id = e.target.parentElement.id
 				// console.log(id)
-				this.updateTitle = document.getElementById('update-title')
-				this.updateAuthor = document.getElementById('update-author')
-				this.updateDes = document.getElementById('update-des')
-				this.updateImg = document.getElementById('update-image')
-				this.updateCate = document.getElementById('update-cate')
-				this.formUpdate.addEventListener('click',e=>{
+				const updateTitleElement = document.getElementById('update-title')
+				const updateAuthor = document.getElementById('update-author')
+				const updateDes = document.getElementById('update-des')
+				const updateImg = document.getElementById('update-image')
+				const updateCate = document.getElementById('update-cate')
+				this.formUpdate.addEventListener('click', e => {
 					if(e.target.className === 'btn-update'){
-						console.log(id)
-						handler(id, 
-						this.updateTitle.value,
-						this.updateAuthor.value,
-						this.updateDes.value,
-						this.updateCate.value,
-						this.updateImg.value)
+						const bookUpdate =  {
+							id,
+							title: updateTitleElement.value,
+							author: updateAuthor.value,
+							description: updateDes.value,
+							category: updateCate.value,
+							image: updateImg.value
+						}
+
+						handler(id, bookUpdate)
 						const popup = document.getElementById('popup')
-						popup.remove()
+						if (popup) popup.remove()
+				
 						const updateForm = document.getElementById('update-form-btn')
-						updateForm.remove()
+						if (updateForm) updateForm.remove()
 					}
 				})
 			}
@@ -285,3 +289,10 @@ export default class View{
 
     }
 }
+
+const popup =`
+<div>
+	<p>Title</p>
+</div>`
+
+inputUpdateCate.innerHtml = popup;

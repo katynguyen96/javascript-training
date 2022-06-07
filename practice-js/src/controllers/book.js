@@ -14,6 +14,7 @@ export default class Controller{
 
 	init = async () =>{
 		const books = await this.model.getBook()
+		console.log("21asd", books)
 		this.view.display(books)
 	}
 
@@ -26,8 +27,8 @@ export default class Controller{
 		this.view.display(books)
 	}
 
-	handleUpdateBook = async (id, title, author, description, category, image)=>{
-		const books = await this.model.updateBook(id, title, author, description, category, image)
+	handleUpdateBook = async (id, book)=>{
+		const books = await this.model.updateBook(id, book)
 		this.view.display(books)
 	}
 
