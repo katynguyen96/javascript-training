@@ -78,6 +78,17 @@
   margin-top: 10px;
 }
 
+.add-form-title {
+  justify-content: space-between;
+  display: flex;
+}
+
+.add-form-title i {
+  cursor: pointer;
+  margin-top: 15px;
+  font-size: 20px;
+}
+
 .add-book-page {
   visibility: hidden;
   z-index: 10;
@@ -112,6 +123,10 @@
   padding: 4px;
 }
 
+.add-book-page .field input {
+  margin-top: 5px;
+}
+
 .btn {
   justify-content: space-between;
   display: flex;
@@ -122,6 +137,22 @@
   height: 30px;
   margin-top: 15px;
   margin-bottom: 10px;
+}
+
+.close {
+  color: #fff;
+  cursor: pointer;
+  background-color: #ed3939;
+  border: none;
+  border-radius: 2px;
+}
+
+.submit {
+  color: #fff;
+  cursor: pointer;
+  background-color: #52c750;
+  border: none;
+  border-radius: 2px;
 }
 
 .open-add-page, .open-update-page {
@@ -220,7 +251,7 @@
   height: 30px;
   color: #fff;
   cursor: pointer;
-  background-color: #ffff4a;
+  background-color: #e6d437;
   border: none;
   margin-left: 10px;
   font-size: 15px;
@@ -251,6 +282,61 @@
   margin-top: 15px;
   margin-left: 20px;
   display: flex;
+}
+
+.delete-form {
+  width: 250px;
+  height: 70px;
+  visibility: hidden;
+  background-color: #fff;
+  border: 1px solid;
+  justify-content: space-between;
+  display: flex;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+}
+
+.delete-form .sure-delete {
+  height: 25px;
+  margin-top: 35px;
+  margin-bottom: 0;
+  margin-right: 5px;
+}
+
+.delete-form p {
+  margin-top: 5px;
+  margin-left: 5px;
+}
+
+.btn-update {
+  width: 60px;
+  height: 30px;
+  cursor: pointer;
+  color: #fff;
+  background-color: #e6d437;
+  border: none;
+  border-radius: 3px;
+  margin-bottom: 10px;
+}
+
+.btn-close {
+  width: 50px;
+  height: 30px;
+  cursor: pointer;
+  color: #fff;
+  background-color: #ed3939;
+  border: none;
+  border-radius: 3px;
+  margin-bottom: 10px;
+}
+
+.update-form input {
+  margin-top: 5px;
+}
+
+.update-form select {
+  margin-left: 5px;
 }
 
 /*# sourceMappingURL=index.599ca509.css.map */

@@ -1,22 +1,6 @@
 {
   "books": [
     {
-      "id": "1654502824629",
-      "title": "Coraline",
-      "author": "Russel",
-      "description": "The graphic novel adaptation",
-      "category": "Horror",
-      "image": "https://cdn-amz.fado.vn/images/I/819ZdgZRK3L.jpg"
-    },
-    {
-      "id": "1654503371373",
-      "title": "The Beginning after the end",
-      "author": "TurtleMe",
-      "description": "Novel",
-      "category": "Comic",
-      "image": "https://img.wattpad.com/cover/272557732-352-k939808.jpg"
-    },
-    {
       "id": "1654503440004",
       "title": "Full",
       "author": "Secret",
@@ -26,11 +10,19 @@
     },
     {
       "id": "1654503492812",
-      "title": "A Man Call Oven",
+      "title": "A Man Call Ove",
       "author": "Secret",
       "description": "Novel",
       "category": "Comic",
       "image": "https://cdn0.fahasa.com/media/catalog/product/a/_/a_man_called_ove_a_novel_1_2018_04_26_15_39_20.jpg"
+    },
+    {
+      "id": "1654680764302",
+      "title": "Coraline",
+      "author": "Russel",
+      "description": "Novel",
+      "category": "Cooking",
+      "image": "https://cdn-amz.fado.vn/images/I/819ZdgZRK3L.jpg"
     }
   ]
 }
