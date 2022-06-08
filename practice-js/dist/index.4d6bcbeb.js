@@ -809,6 +809,7 @@ class View {
         this.search = document.getElementById('search-btn');
         this.inputSearch = document.getElementById('search-input');
         this.checkCate = document.getElementsByClassName('check');
+        this.ENTER_KEY = 13;
     }
     _resetInput() {
         this.inputTitle.value = "";
@@ -854,7 +855,7 @@ class View {
                 btnEdit.addEventListener('click', ()=>{
                     const overlay = document.getElementById('overlay');
                     const updateForm = document.getElementById("update-form");
-                    this.editBook(cardBook);
+                    this.editModal(book);
                     updateForm.style.visibility = "visible";
                     overlay.style.opacity = "1";
                 });
@@ -865,19 +866,16 @@ class View {
     }
     bindAddBook(handler) {
         this.addBtn.addEventListener('click', (e)=>{
-            // e.preventDefault()
             handler(this.inputTitle.value, this.inputAuthor.value, this.inputDescription.value, this.inputCate.value, this.inputImg.value);
             this._resetInput();
         });
     }
-    editBook(books) {
+    editModal(book) {
         const update = document.getElementById('update-form');
         update.className = 'update-form';
-        console.log(books.id);
-        // update.style.opacity = '0'
         const wrapper = document.createElement('div');
         wrapper.className = 'wrapper';
-        // wrapper.id = book.id
+        wrapper.id = 'wrapper';
         const popup = document.createElement('div');
         popup.className = 'popup';
         update.style.visibility = 'hidden';
@@ -900,11 +898,13 @@ class View {
         const inputUpdateTT = document.createElement('input');
         inputUpdateTT.className = 'update-title';
         inputUpdateTT.id = 'update-title';
+        inputUpdateTT.value = book.title;
         const labelUpdateDes = document.createElement('label');
         labelUpdateDes.textContent = 'Description';
         const inputUpdateDes = document.createElement('textarea');
         inputUpdateDes.className = 'update-des';
         inputUpdateDes.id = 'update-des';
+        inputUpdateDes.value = book.description;
         const labelUpdateCate = document.createElement('label');
         labelUpdateCate.textContent = 'Categories';
         const inputUpdateCate = document.createElement('select');
@@ -926,19 +926,23 @@ class View {
         inputUpdateCate.add(option3);
         inputUpdateCate.add(option);
         inputUpdateCate.id = 'update-cate';
+        inputUpdateCate.value = book.category;
         const labelUpdateAu = document.createElement('label');
         labelUpdateAu.textContent = 'Author';
         const inputUpdateAu = document.createElement('input');
         inputUpdateAu.className = 'update-author';
         inputUpdateAu.id = 'update-author';
+        inputUpdateAu.value = book.author;
         const labelUpdateImg = document.createElement('label');
         labelUpdateImg.textContent = 'Image Link';
         const inputUpdateImg = document.createElement('input');
         inputUpdateImg.className = 'update-image';
         inputUpdateImg.id = 'update-image';
+        inputUpdateImg.value = book.image;
         const btnUpdate = document.createElement('button');
         btnUpdate.textContent = 'Update';
         btnUpdate.className = 'btn-update';
+        btnUpdate.id = 'btn-update';
         btnUpdate.addEventListener('click', ()=>{
             const overlay = document.getElementById('overlay');
             const updateForm = document.getElementById('update-form');
@@ -952,11 +956,10 @@ class View {
         btnClose.addEventListener('click', ()=>{
             const overlay = document.getElementById('overlay');
             const updateForm = document.getElementById('update-form');
-            const updateBtn = document.getElementById('update-form-btn');
+            const wrrap = document.getElementById('wrapper');
             updateForm.style.visibility = 'hidden';
             overlay.style.opacity = '0';
-            popup.remove();
-            updateBtn.remove();
+            wrrap.remove();
         });
         updateFieldTT.append(labelUpdateTT, inputUpdateTT);
         updateFieldDes.append(labelUpdateDes, inputUpdateDes);
@@ -969,34 +972,28 @@ class View {
         btn.append(btnUpdate, btnClose);
         popup.append(editTitle, updateFieldTT, updateFieldDes, updateFieldCate, updateFieldAu, updateFieldImg);
         wrapper.append(popup, btn);
-        update.append(wrapper);
+        update.appendChild(wrapper);
     }
     bindUpdateBook(handler) {
-        this.booklist.addEventListener('click', (e1)=>{
-            if (e1.target.className === 'edit-btn') {
-                const id = e1.target.parentElement.id;
-                // console.log(id)
+        this.booklist.addEventListener('click', (e)=>{
+            if (e.target.className === 'edit-btn') {
+                const id = e.target.parentElement.id;
                 this.updateTitle = document.getElementById('update-title');
                 this.updateAuthor = document.getElementById('update-author');
                 this.updateDes = document.getElementById('update-des');
                 this.updateImg = document.getElementById('update-image');
                 this.updateCate = document.getElementById('update-cate');
-                this.formUpdate.addEventListener('click', (e)=>{
-                    if (e.target.className === 'btn-update') {
-                        console.log(id);
-                        handler(id, this.updateTitle.value, this.updateAuthor.value, this.updateDes.value, this.updateCate.value, this.updateImg.value);
-                        const popup = document.getElementById('popup');
-                        popup.remove();
-                        const updateForm = document.getElementById('update-form-btn');
-                        updateForm.remove();
-                    }
+                const edit = document.getElementById("btn-update");
+                edit.addEventListener('click', ()=>{
+                    handler(id, this.updateTitle.value, this.updateAuthor.value, this.updateDes.value, this.updateCate.value, this.updateImg.value);
+                    const wrapper = document.getElementById('wrapper');
+                    if (wrapper) wrapper.remove();
                 });
             }
         });
     }
     bindDeleteBook(handler) {
         this.booklist.addEventListener('click', (e)=>{
-            // e.preventDefault()
             if (e.target.className === 'delete-btn') {
                 const id = e.target.parentElement.id;
                 handler(id);
@@ -1008,19 +1005,16 @@ class View {
             if (this.inputSearch.value === "") alert("Enter the book name you want to find");
             if (this.inputSearch.vale !== "") handler(this.inputSearch.value);
         });
+        this.inputSearch.addEventListener("keyup", (e)=>{
+            if (e.which === this.ENTER_KEY) {
+                if (this.inputSearch.value === "") alert("Enter the book name you want to find");
+                if (this.inputSearch.value !== "") handler(this.inputSearch.value);
+            }
+        });
     }
     bindFilterBook(handler) {
         for (let check of this.checkCate)check.addEventListener('click', ()=>{
-            if (check.checked) {
-                console.log(check.value);
-                // const a = check.value
-                handler(check.value);
-            // if(check.checked !== false){
-            // 	check.value = ""
-            // 	handler(check.value)
-            // 	check.value = a
-            // }
-            }
+            if (check.checked) handler(check.value);
         });
     }
 }

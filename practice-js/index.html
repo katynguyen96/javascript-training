@@ -21,7 +21,10 @@
 	</div>
 	<div id="add-book-page" class="add-book-page active">
 		<div class="popup">
-			<h2 class="form-title">Add Book</h2>
+			<div class="add-form-title">
+				<h2 class="form-title">Add Book</h2>
+				<i class="fa-solid fa-xmark" onclick="submitBook()"></i>
+			</div>
 			<div class="field">
 				<label class="">Title</label>
 				<div>
@@ -87,7 +90,11 @@
 			
 		</div>
 		<div id="update-form">
-	</div>
+		</div>
+		<div id="delete-form" class="delete-form">
+			<p>Are you sure want to delete</p>
+			<button id="sure-delete" class="sure-delete">Delete</button>
+		</div>
 	<script type="text/javascript">
 		let addBook = document.getElementById("add-book-page");
 		function openAddPage(){

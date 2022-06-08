@@ -79,6 +79,17 @@
 	margin-top: 10px;
 }
 
+.add-form-title {
+	display: flex;
+	justify-content: space-between;
+}
+
+.add-form-title i{
+	margin-top: 15px;
+	font-size: 20px;
+	cursor: pointer;
+}
+
 .add-book-page{
 	position: fixed;
 	top:50%;
@@ -113,6 +124,10 @@
 	width: 310px;
 }
 
+.add-book-page .field input{
+	margin-top: 5px;
+}
+
 .btn{
 	display: flex;
 	justify-content: space-between;
@@ -123,6 +138,22 @@
 	width: 70px;
 	height: 30px;
 	margin-bottom: 10px;
+}
+
+.close {
+	background-color: #ED3939;
+	color: #FFF;
+	border:none;
+	border-radius: 2px;
+	cursor: pointer;
+}
+
+.submit {
+	background-color: #52C750;
+	color:#FFF;
+	border: none;
+	border-radius: 2px;
+	cursor: pointer;
 }
 
 .open-add-page{
@@ -228,7 +259,7 @@
 	width: 70px;
 	margin-left: 10px;
 	height: 30px;
-	background-color: #FFFF4A;
+	background-color: #E6D437;
 	color: #FFF;
 	cursor: pointer;
 	font-size: 15px;
@@ -260,4 +291,59 @@
 	display: flex;
 	width: 300px;
 	justify-content: space-between;
+}
+
+.delete-form {
+	display: flex;
+	justify-content: space-between;
+	position: fixed;
+	width: 250px;
+	height: 70px;
+	border: 1px solid;
+	top: 50%;
+	left: 50%;
+	visibility: hidden;
+	background-color: #FFF;
+}
+
+.delete-form .sure-delete {
+	margin-top: 35px;
+	margin-right: 5px;
+	margin-bottom: 0;
+	height: 25px;
+}
+
+.delete-form p {
+	margin-left: 5px;
+	margin-top: 5px;
+}
+
+.btn-update {
+	width: 60px;
+	height: 30px;
+	margin-bottom: 10px;
+	cursor: pointer;
+	border-radius: 3px;
+	background-color: #E6D437;
+	color: #FFF;
+	border: none;
+}
+
+.btn-close {
+	width: 50px;
+	height: 30px;
+	margin-bottom: 10px;
+	background-color: #ED3939;
+	border: none;
+	cursor: pointer;
+	color: #FFF;
+	border-radius: 3px;
+}
+
+.update-form input{
+	margin-top: 5px;
+}
+
+.update-form select {
+	margin-left: 5px;
 }
