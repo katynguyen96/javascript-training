@@ -286,7 +286,7 @@
 
 .delete-form {
   width: 250px;
-  height: 70px;
+  height: 80px;
   visibility: hidden;
   background-color: #fff;
   border: 1px solid;
@@ -299,9 +299,15 @@
 
 .delete-form .sure-delete {
   height: 25px;
-  margin-top: 35px;
+  margin-top: 40px;
   margin-bottom: 0;
   margin-right: 5px;
+}
+
+.delete-form i {
+  position: absolute;
+  top: 4px;
+  left: 93%;
 }
 
 .delete-form p {
