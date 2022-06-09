@@ -978,14 +978,14 @@ class View {
         this.booklist.addEventListener('click', (e)=>{
             if (e.target.className === 'edit-btn') {
                 const id = e.target.parentElement.id;
-                this.updateTitle = document.getElementById('update-title');
-                this.updateAuthor = document.getElementById('update-author');
-                this.updateDes = document.getElementById('update-des');
-                this.updateImg = document.getElementById('update-image');
-                this.updateCate = document.getElementById('update-cate');
+                const updateTitle = document.getElementById('update-title');
+                const updateAuthor = document.getElementById('update-author');
+                const updateDes = document.getElementById('update-des');
+                const updateImg = document.getElementById('update-image');
+                const updateCate = document.getElementById('update-cate');
                 const edit = document.getElementById("btn-update");
                 edit.addEventListener('click', ()=>{
-                    handler(id, this.updateTitle.value, this.updateAuthor.value, this.updateDes.value, this.updateCate.value, this.updateImg.value);
+                    handler(id, updateTitle.value, updateAuthor.value, updateDes.value, updateCate.value, updateImg.value);
                     const wrapper = document.getElementById('wrapper');
                     if (wrapper) wrapper.remove();
                 });
@@ -994,9 +994,22 @@ class View {
     }
     bindDeleteBook(handler) {
         this.booklist.addEventListener('click', (e)=>{
+            let check = 0;
             if (e.target.className === 'delete-btn') {
                 const id = e.target.parentElement.id;
-                handler(id);
+                const deleteForm = document.getElementById('delete-form');
+                deleteForm.style.visibility = "visible";
+                const overlay = document.getElementById("overlay");
+                overlay.style.opacity = "1";
+                const sureDelete = document.getElementById("sure-delete");
+                sureDelete.addEventListener('click', ()=>{
+                    if (check === 0) {
+                        handler(id);
+                        overlay.style.opacity = "0";
+                        deleteForm.style.visibility = "hidden";
+                        check++;
+                    }
+                });
             }
         });
     }

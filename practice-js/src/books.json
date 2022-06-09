@@ -3,7 +3,7 @@
     {
       "id": "1654503440004",
       "title": "Full",
-      "author": "Secret",
+      "author": "Unknow",
       "description": "Novel",
       "category": "Comic",
       "image": "https://m.media-amazon.com/images/I/41pjqMqHXQL.jpg"
@@ -21,6 +21,14 @@
       "title": "Coraline",
       "author": "Russel",
       "description": "Novel",
+      "category": "Cooking",
+      "image": "https://cdn-amz.fado.vn/images/I/819ZdgZRK3L.jpg"
+    },
+    {
+      "id": "1654763087637",
+      "title": "Test",
+      "author": "123",
+      "description": "test",
       "category": "Cooking",
       "image": "https://cdn-amz.fado.vn/images/I/819ZdgZRK3L.jpg"
     }

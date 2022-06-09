@@ -298,7 +298,7 @@
 	justify-content: space-between;
 	position: fixed;
 	width: 250px;
-	height: 70px;
+	height: 80px;
 	border: 1px solid;
 	top: 50%;
 	left: 50%;
@@ -307,10 +307,17 @@
 }
 
 .delete-form .sure-delete {
-	margin-top: 35px;
+	margin-top: 40px;
 	margin-right: 5px;
 	margin-bottom: 0;
 	height: 25px;
+}
+
+.delete-form i {
+	/*margin-left: 10px;*/
+	position: absolute;
+	left: 93%;
+	top:4px;
 }
 
 .delete-form p {
