@@ -16,14 +16,14 @@
 			</div>
 		</div>
 		<div class="add-btn">
-			<button data-open-button="#add-book-page" id="add-new-book" onclick="openAddPage()"><i class="fa-solid fa-plus"></i>add book</button>
+			<button data-open-button="#add-book-page" id="add-new-book"><i class="fa-solid fa-plus"></i>add book</button>
 		</div>
 	</div>
 	<div id="add-book-page" class="add-book-page active">
 		<div class="popup">
 			<div class="add-form-title">
 				<h2 class="form-title">Add Book</h2>
-				<i class="fa-solid fa-xmark" onclick="submitBook()"></i>
+				<i class="fa-solid fa-xmark" id="modal-close-icon"></i>
 			</div>
 			<div class="field">
 				<label class="">Title</label>
@@ -61,8 +61,8 @@
 				</div>
 			</div>
 			<div class="btn">
-				<button data-close-button class="submit" id="submit" onclick="submitBook()">OK</button>
-				<button data-close-button class="close" onclick="submitBook()">Close</button>
+				<button data-close-button class="submit" id="submit">OK</button>
+				<button data-close-button class="close" id="close-modal">Close</button>
 			</div>
 		</div>
 	</div>
@@ -93,20 +93,9 @@
 		</div>
 		<div id="delete-form" class="delete-form">
 			<p>Are you sure want to delete</p>
-			<i class="fa-solid fa-xmark"></i>
+			<i class="fa-solid fa-xmark close-icon" id="close-icon"></i>
 			<button id="sure-delete" class="sure-delete">Delete</button>
 		</div>
-	<script type="text/javascript">
-		let addBook = document.getElementById("add-book-page");
-		function openAddPage(){
-			addBook.classList.add("open-add-page");
-			document.getElementById("overlay").style.opacity = 1;
-		}
-		function submitBook(){
-			addBook.classList.remove("open-add-page");
-			document.getElementById("overlay").style.opacity = 0;
-		}
-	</script>
 	<script type="module" src="./src/main.js"></script>
 </body>
 </html>
