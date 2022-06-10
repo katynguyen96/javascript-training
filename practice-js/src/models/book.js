@@ -22,7 +22,7 @@ export default class Model{
 
 	/**
      * 
-     * @param {number} id
+     * @param {string} id
      * @param {string} title
 	 * @param {string} author
 	 * @param {string} description

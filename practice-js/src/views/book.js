@@ -22,6 +22,20 @@ export default class View{
 		this.inputImg.value = ""
 	}
 
+	closeModalAdd() {
+		const addModal = document.getElementById("add-book-page")
+		const overlay = document.getElementById("overlay")
+		addModal.style.visibility = "hidden"
+		overlay.style.opacity = "0"
+	}
+
+	closeModalDelete() {
+        const deleteForm = document.getElementById('delete-form')
+        const overlay = document.getElementById("overlay")
+		overlay.style.opacity = "0"
+       	deleteForm.style.visibility = "hidden"
+	}
+
 	display(books){
 			if(books.length !== 0){
 				const wrapper = document.getElementsByClassName("booklist")
@@ -81,6 +95,21 @@ export default class View{
 	}
 
 	bindAddBook(handler){
+		const addNewBook = document.getElementById("add-new-book")
+		addNewBook.addEventListener("click",()=>{
+			const addModal = document.getElementById("add-book-page")
+			const overlay = document.getElementById("overlay")
+			addModal.style.visibility = "visible"
+			overlay.style.opacity = "1"
+		})
+		const closeModal = document.getElementById("close-modal")
+		closeModal.addEventListener("click",()=>{
+			this.closeModalAdd()
+		})
+		const closeModalIcon = document.getElementById("modal-close-icon")
+		closeModalIcon.addEventListener("click",()=>{
+			this.closeModalAdd()
+		})
 		this.addBtn.addEventListener('click', e => {
             handler(this.inputTitle.value,
                 this.inputAuthor.value, 
@@ -88,6 +117,7 @@ export default class View{
                 this.inputCate.value,
                 this.inputImg.value
             )
+            this.closeModalAdd()
             this._resetInput()
         })
 	}
@@ -252,12 +282,18 @@ export default class View{
                 deleteForm.style.visibility = "visible"
                 const overlay = document.getElementById("overlay")
                 overlay.style.opacity = "1"
+                const icon = document.getElementById("close-icon")
+                icon.addEventListener('click',()=>{
+                	this.closeModalDelete()
+                	check++
+                })
                 const sureDelete = document.getElementById("sure-delete")
                 sureDelete.addEventListener('click',()=>{
-                	if(check===0){handler(id)
-                	overlay.style.opacity = "0"
-                	deleteForm.style.visibility = "hidden"
-                	check++}
+                	if(check===0) {
+                		handler(id)
+                		this.closeModalDelete()
+                		check++
+                	}
                 })
             }
         })
