@@ -36,6 +36,7 @@ export default class View{
        	deleteForm.style.visibility = "hidden"
 	}
 
+	// Render Item
 	display(books){
 			if(books.length !== 0){
 				const wrapper = document.getElementsByClassName("booklist")
@@ -289,7 +290,7 @@ export default class View{
                 })
                 const sureDelete = document.getElementById("sure-delete")
                 sureDelete.addEventListener('click',()=>{
-                	if(check===0) {
+                	if(check === 0) {
                 		handler(id)
                 		this.closeModalDelete()
                 		check++
@@ -302,7 +303,7 @@ export default class View{
     bindSearchBook(handler){
     	this.search.addEventListener('click',() => {
     		if(this.inputSearch.value === ""){
-    			alert("Enter the book name you want to find")
+    			alert("Enter the book you want to find")
     		}
     		if(this.inputSearch.vale !== ""){
     			handler(this.inputSearch.value)
@@ -311,7 +312,7 @@ export default class View{
     	this.inputSearch.addEventListener("keyup",e=>{
     		if(e.which === this.ENTER_KEY){
     			if(this.inputSearch.value === ""){
-    				alert("Enter the book name you want to find")
+    				alert("Enter the book you want to find")
     			}
     			if (this.inputSearch.value!=="") {
     				handler(this.inputSearch.value)

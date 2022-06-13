@@ -8,7 +8,7 @@ export default class Controller{
 		this.view.bindDeleteBook(this.handleDeleteBook)
 		this.view.bindSearchBook(this.handleSearchBook)
 		this.view.bindFilterBook(this.handleFilterBook)
-		this.onBookListChanged(this.model.getBook)
+		// this.onBookListChanged(this.model.getBook)
 		this.view.bindUpdateBook(this.handleUpdateBook)
 	}
 
@@ -17,9 +17,9 @@ export default class Controller{
 		this.view.display(books)
 	}
 
-	onBookListChanged = books =>{
-		this.view.display(books)
-	}
+	// onBookListChanged = books =>{
+	// 	this.view.display(books)
+	// }
 
 	handleAddBook = async (title, author, description, category, image)=>{
 		const books = await this.model.addBook(title, author, description, category, image)
