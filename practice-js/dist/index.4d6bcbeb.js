@@ -721,7 +721,9 @@ var _constantDefault = parcelHelpers.interopDefault(_constant);
         else options.body = JSON.stringify(params);
     }
     const response = await fetch(_constantDefault.default.API_HOST + url, options);
-    if (response.status !== 200) return generateErrorResponse('The server responded with an unexpected status.');
+    // if (response.status !== 200) {
+    //     return generateErrorResponse('The server responded with an unexpected status.');
+    // }
     const result = await response.json();
     return result;
 }
@@ -829,6 +831,7 @@ class View {
         overlay.style.opacity = "0";
         deleteForm.style.visibility = "hidden";
     }
+    // Render Item
     display(books) {
         if (books.length !== 0) {
             const wrapper = document.getElementsByClassName("booklist");
@@ -1047,12 +1050,12 @@ class View {
     }
     bindSearchBook(handler) {
         this.search.addEventListener('click', ()=>{
-            if (this.inputSearch.value === "") alert("Enter the book name you want to find");
+            if (this.inputSearch.value === "") alert("Enter the book you want to find");
             if (this.inputSearch.vale !== "") handler(this.inputSearch.value);
         });
         this.inputSearch.addEventListener("keyup", (e)=>{
             if (e.which === this.ENTER_KEY) {
-                if (this.inputSearch.value === "") alert("Enter the book name you want to find");
+                if (this.inputSearch.value === "") alert("Enter the book you want to find");
                 if (this.inputSearch.value !== "") handler(this.inputSearch.value);
             }
         });
