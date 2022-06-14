@@ -15,6 +15,7 @@ export default class View{
 		this.ENTER_KEY = 13
 	}
 
+	// Reset the input after add book
 	_resetInput(){
 		this.inputTitle.value = ""
 		this.inputAuthor.value = ""
@@ -22,6 +23,7 @@ export default class View{
 		this.inputImg.value = ""
 	}
 
+	// Close add book modal
 	closeModalAdd() {
 		const addModal = document.getElementById("add-book-page")
 		const overlay = document.getElementById("overlay")
@@ -29,6 +31,7 @@ export default class View{
 		overlay.style.opacity = "0"
 	}
 
+	// Close delete book modal
 	closeModalDelete() {
         const deleteForm = document.getElementById('delete-form')
         const overlay = document.getElementById("overlay")
@@ -95,6 +98,10 @@ export default class View{
 			} 	
 	}
 
+	 /**
+     * Add event 'click' for element button
+     * @param {function} handler 
+     */
 	bindAddBook(handler){
 		const addNewBook = document.getElementById("add-new-book")
 		addNewBook.addEventListener("click",()=>{
@@ -123,6 +130,7 @@ export default class View{
         })
 	}
 
+	// Edit book modal
 	editModal(book){
 		const update = document.getElementById('update-form')
 		update.className = 'update-form'
@@ -251,6 +259,12 @@ export default class View{
 		update.appendChild(wrapper)
 	}
 
+	/**
+     * function use id to update book
+     * Add event 'click' for bookList element
+     * Add event 'click' for edit button
+     * @param {fuction} handler 
+     */
 	bindUpdateBook(handler){
 		this.booklist.addEventListener('click', e=>{
 			if(e.target.className === 'edit-btn'){
@@ -274,6 +288,12 @@ export default class View{
 		})
 	}
 
+	/**
+     * function use id to delete book
+     * Add event 'click' for booklist element
+     * Add event 'click' for delete button
+     * @param {function} handler 
+     */
 	bindDeleteBook(handler) {
         this.booklist.addEventListener('click', e => {
         	let check = 0
@@ -300,6 +320,12 @@ export default class View{
         })
     }
 
+    /**
+     * function use information to search book
+     * Add event 'click' for search button
+     * Add event 'keyup' for search input
+     * @param {function} handler 
+     */
     bindSearchBook(handler){
     	this.search.addEventListener('click',() => {
     		if(this.inputSearch.value === ""){
@@ -321,6 +347,11 @@ export default class View{
     	})
     }
 
+    /**
+     * function use category to filter book
+     * Add event 'click' for check element
+     * @param {function} handler 
+     */
     bindFilterBook(handler){
     	for(let check of this.checkCate){
     		check.addEventListener('click', ()=>{

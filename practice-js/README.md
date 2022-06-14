@@ -27,7 +27,7 @@ This document provides information about Javascript practice. Build Book Managem
 ```
 git clone https://github.com/katynguyen96/javascript-training.git
 ```
-- Step 2: Move to folder practice1
+- Step 2: Move to folder practice-js
 ```
 cd practice1
 ```
