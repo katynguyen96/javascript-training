@@ -29,7 +29,7 @@ git clone https://github.com/katynguyen96/javascript-training.git
 ```
 - Step 2: Move to folder practice-js
 ```
-cd practice1
+cd practice-js
 ```
 - Step 3: Start JSON server
 ```
