@@ -314,11 +314,11 @@
 	background-color: #ED3939;
 	border: none;
 	cursor: pointer;
-	color: #FFF
+	color: #FFF;
+	border-radius:2px;
 }
 
 .delete-form i {
-	/*margin-left: 10px;*/
 	position: absolute;
 	left: 93%;
 	top:4px;

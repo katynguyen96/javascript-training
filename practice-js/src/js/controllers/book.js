@@ -9,7 +9,6 @@ export default class Controller{
 		this.view.bindDeleteBook(this.handleDeleteBook)
 		this.view.bindSearchBook(this.handleSearchBook)
 		this.view.bindFilterBook(this.handleFilterBook)
-		// this.onBookListChanged(this.model.getBook)
 		this.view.bindUpdateBook(this.handleUpdateBook)
 	}
 
@@ -18,10 +17,6 @@ export default class Controller{
 		const books = await this.model.getBook()
 		this.view.display(books)
 	}
-
-	// onBookListChanged = books =>{
-	// 	this.view.display(books)
-	// }
 
 	/**
      * Use all the param from views call to models 
