@@ -2,9 +2,7 @@ import fetch from '../helpers/service'
 import path from '../constant'
 export default class Model{
     books = []
-	constructor(){
-		// this.books = []
-	}
+	constructor(){}
 
     bindBookListChanged(callback){
         this.onBookListChanged = callback
@@ -39,8 +37,8 @@ export default class Model{
 			category: category,
 			image: image,
 		}
-        this.books.push(bookAdded)
         await fetch.create(`/${path.PATH}`, bookAdded)
+        this.books.push(bookAdded)
         return this.books
 	}
 
@@ -52,8 +50,8 @@ export default class Model{
      deleteBook = async(id) => {
         const index = this.books.findIndex(item => item.id === id)
         const book = this.books[index]
-        this.books.splice(index, 1)
         await fetch.remove(`/${path.PATH}/${id}`, book)
+        this.books.splice(index, 1)
         return this.books
     }
 
@@ -72,17 +70,25 @@ export default class Model{
             category: updateCate,
             image: updateImg
          }
-        this.books.splice(index, 1, bookUpdate)
         await fetch.update(`/${path.PATH}/${id}`, bookUpdate)
+        this.books.splice(index, 1, bookUpdate)
         return this.books
     }
 
+    /**
+     * Search all books that match 
+     * @returns {array} book
+     */
     searchBook = async(title)=>{
         const book = await fetch.get(`/${path.PATH}?q=${title}`)
         this.books = book
         return book
     }
 
+    /**
+     * Filter all book that match
+     * @returns {array} todos
+     */
     filterBook = async(category) =>{
         const book = await fetch.get(`/${path.PATH}?category=${category}`)
         this.books = book
