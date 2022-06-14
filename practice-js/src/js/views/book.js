@@ -5,7 +5,7 @@ export default class View{
 		this.inputDescription = document.getElementById('add-des')
 		this.inputImg = document.getElementById('add-img')
 		this.inputCate = document.getElementById('add-cate')
-		this.booklist = document.getElementById('booklist')
+		this.booklist = document.getElementById('book-list')
 		this.updateForm = document.getElementById('update-form')
 		this.addBtn = document.getElementById("submit")
 		this.formUpdate = document.getElementById('update-form')
@@ -46,41 +46,41 @@ export default class View{
 				wrapper[0].innerHTML = ""
 
 				books.forEach(book=>{
-					const cardBook = document.createElement("div")
+					let cardBook = document.createElement("div")
 					cardBook.id = book.id
 					cardBook.className = "card-book"
 		
-					const title = document.createElement("h2")
+					let title = document.createElement("h2")
 					title.className = "book-title"
 					title.textContent = book.title
 		
-					const bookBody = document.createElement("div");
+					let bookBody = document.createElement("div");
 					bookBody.className = "body";
 		
-					const img = document.createElement("div")
+					let img = document.createElement("div")
 					img.className = "book-img"
 					img.style.backgroundImage = `url(${book.image})`
 		
-					const des = document.createElement("div")
+					let des = document.createElement("div")
 					des.className = "book-des"
 					des.textContent = book.description
 		
-					const author = document.createElement("h2")
+					let author = document.createElement("h2")
 					author.className = "book-author"
 					author.textContent = book.author
 		
 					bookBody.append(title, author, des)
 		
-					const btnDelete = document.createElement("button")
-					const icon1 = document.createElement("i")
+					let btnDelete = document.createElement("button")
+					let icon1 = document.createElement("i")
 					icon1.className = "fa-solid fa-trash-can"
 					btnDelete.className = "delete-btn"
 					btnDelete.textContent = "Delete"
 					btnDelete.append(icon1)
 
-					const btnEdit = document.createElement("button")
+					let btnEdit = document.createElement("button")
 					btnEdit.className = "edit-btn"
-					const icon = document.createElement("i")
+					let icon = document.createElement("i")
 					icon.className = "fa-solid fa-pen"
 					btnEdit.textContent = "Edit"
 					btnEdit.append(icon)
@@ -132,90 +132,90 @@ export default class View{
 
 	// Edit book modal
 	editModal(book){
-		const update = document.getElementById('update-form')
+		let update = document.getElementById('update-form')
 		update.className = 'update-form'
-		const wrapper = document.createElement('div')
+		let wrapper = document.createElement('div')
 		wrapper.className = 'wrapper'
 		wrapper.id = 'wrapper'
 
-		const popup = document.createElement('div')
+		let popup = document.createElement('div')
 		popup.className = 'popup'
 		update.style.visibility = 'hidden'
 		popup.id = 'popup'
 
 
-		const editTitle = document.createElement('h2')
+		let editTitle = document.createElement('h2')
 		editTitle.className = 'form-title'
 		editTitle.textContent = 'Update Book'
 
-		const updateFieldTT = document.createElement('div')
+		let updateFieldTT = document.createElement('div')
 		updateFieldTT.className = 'field'
 
-		const updateFieldDes = document.createElement('div')
+		let updateFieldDes = document.createElement('div')
 		updateFieldDes.className = 'field'
 
-		const updateFieldCate = document.createElement('div')
+		let updateFieldCate = document.createElement('div')
 		updateFieldCate.className = 'field'
 
-		const updateFieldAu = document.createElement('div')
+		let updateFieldAu = document.createElement('div')
 		updateFieldAu.className = 'field'
 
-		const updateFieldImg = document.createElement('div')
+		let updateFieldImg = document.createElement('div')
 		updateFieldImg.className = 'field'
 
-		const labelUpdateTT = document.createElement('label')
+		let labelUpdateTT = document.createElement('label')
 		labelUpdateTT.textContent = 'Title'
-		const inputUpdateTT = document.createElement('input')
+		let inputUpdateTT = document.createElement('input')
 		inputUpdateTT.className = 'update-title'
 		inputUpdateTT.id = 'update-title'
 		inputUpdateTT.value = book.title
 
-		const labelUpdateDes = document.createElement('label')
+		let labelUpdateDes = document.createElement('label')
 		labelUpdateDes.textContent = 'Description'
-		const inputUpdateDes = document.createElement('textarea')
+		let inputUpdateDes = document.createElement('textarea')
 		inputUpdateDes.className = 'update-des'
 		inputUpdateDes.id = 'update-des'
 		inputUpdateDes.value = book.description
 
-		const labelUpdateCate = document.createElement('label')
+		let labelUpdateCate = document.createElement('label')
 		labelUpdateCate.textContent = 'Categories'
-		const inputUpdateCate = document.createElement('select')
+		let inputUpdateCate = document.createElement('select')
 		inputUpdateCate.className = 'update-cate'
-		let option = document.createElement('option')
-		option.value = "Cooking"
-		option.text = "Cooking"
+		let cookingOp = document.createElement('option')
+		cookingOp.value = "Cooking"
+		cookingOp.text = "Cooking"
 		
-		let option1 = document.createElement('option')
-		option1.value = "Comic"
-		option1.text = "Comic"
-		inputUpdateCate.add(option1)
-		let option2 = document.createElement('option')
-		option2.value = "Horror"
-		option2.text = "Horror"
-		inputUpdateCate.add(option2)
-		let option3 = document.createElement('option')
-		option3.value = "Bussiness"
-		option3.text = "Bussiness"
-		inputUpdateCate.add(option3)
-		inputUpdateCate.add(option)
+		let comicOp = document.createElement('option')
+		comicOp.value = "Comic"
+		comicOp.text = "Comic"
+		inputUpdateCate.add(comicOP)
+		let horrorOP = document.createElement('option')
+		horrorOP.value = "Horror"
+		horrorOP.text = "Horror"
+		inputUpdateCate.add(horrorOP)
+		let bussinessOp = document.createElement('option')
+		bussinessOp.value = "Bussiness"
+		bussinessOp.text = "Bussiness"
+		inputUpdateCate.add(bussinessOp)
+		inputUpdateCate.add(cookingOp)
 		inputUpdateCate.id = 'update-cate'
 		inputUpdateCate.value = book.category
 
-		const labelUpdateAu = document.createElement('label')
+		let labelUpdateAu = document.createElement('label')
 		labelUpdateAu.textContent = 'Author'
-		const inputUpdateAu = document.createElement('input')
+		let inputUpdateAu = document.createElement('input')
 		inputUpdateAu.className = 'update-author'
 		inputUpdateAu.id = 'update-author'
 		inputUpdateAu.value = book.author
 
-		const labelUpdateImg = document.createElement('label')
+		let labelUpdateImg = document.createElement('label')
 		labelUpdateImg.textContent = 'Image Link'
-		const inputUpdateImg = document.createElement('input')
+		let inputUpdateImg = document.createElement('input')
 		inputUpdateImg.className = 'update-image'
 		inputUpdateImg.id = 'update-image'
 		inputUpdateImg.value = book.image
 
-		const btnUpdate = document.createElement('button')
+		let btnUpdate = document.createElement('button')
 		btnUpdate.textContent = 'Update'
 		btnUpdate.className = 'btn-update'
 		btnUpdate.id = 'btn-update'
@@ -296,6 +296,7 @@ export default class View{
      */
 	bindDeleteBook(handler) {
         this.booklist.addEventListener('click', e => {
+        	//Use check variable to avoid duplicate event
         	let check = 0
             if (e.target.className === 'delete-btn') {
                 const id = e.target.parentElement.id

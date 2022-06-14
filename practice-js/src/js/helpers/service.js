@@ -23,10 +23,7 @@ async function request(url, params, method = 'GET') {
             options.body = JSON.stringify(params);
         }
     }
-
     const response = await fetch(api.API_HOST + url, options);
-    const result = await response.json();
-    return result;
 }
 
 /**

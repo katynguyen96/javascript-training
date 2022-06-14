@@ -4,9 +4,9 @@ export default class Model{
     books = []
 	constructor(){}
 
-    bindBookListChanged(callback){
-        this.onBookListChanged = callback
-    }
+    // bindBookListChanged(callback){
+    //     this.onBookListChanged = callback
+    // }
 
 	/**
    * Use API url from fetch import in read data
