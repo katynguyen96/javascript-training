@@ -195,8 +195,9 @@
 .booklist {
   width: 800px;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
   margin-top: 20px;
+  margin-bottom: 15px;
   margin-left: 200px;
   display: flex;
 }
@@ -207,7 +208,7 @@
   border: 1px solid;
   margin-top: 10px;
   margin-bottom: 10px;
-  margin-left: 10px;
+  margin-left: 20px;
   box-shadow: 3px 3px #adbaba;
 }
 
@@ -349,6 +350,33 @@
 
 .update-form select {
   margin-left: 5px;
+}
+
+.alert {
+  visibility: hidden;
+  width: 340px;
+  height: 90px;
+  background-color: #fff;
+  border: 1px solid;
+  position: fixed;
+  top: 50%;
+  left: 40%;
+}
+
+.alert h3 {
+  margin-left: 10px;
+}
+
+.alert button {
+  width: 60px;
+  height: 30px;
+  color: #fff;
+  cursor: pointer;
+  background-color: #ed3939;
+  border: none;
+  border-radius: 3px;
+  margin-top: 25px;
+  margin-left: 270px;
 }
 
 /*# sourceMappingURL=index.599ca509.css.map */
