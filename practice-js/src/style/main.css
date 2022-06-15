@@ -201,17 +201,18 @@
 	margin-left: 15px;
 }
 
-.book-list {
+.booklist {
 	display: flex;
 	margin-left: 200px;
 	width: 800px;
-	justify-content: space-between;
+	justify-content: flex-start;
 	flex-wrap: wrap;
 	margin-top: 20px;
+	margin-bottom: 15px;
 }
 
 .card-book {
-	margin-left: 10px;
+	margin-left: 20px;
 	width: 230px;
 	height: 330px;
 	border: 1px solid;
@@ -358,4 +359,31 @@
 
 .update-form select {
 	margin-left: 5px;
+}
+
+.alert {
+	visibility: hidden;
+	position: fixed;
+	top: 50%;
+	left: 40%;
+	border: 1px solid;
+	width: 340px;
+	height: 90px;
+	background-color: #FFF;
+}
+
+.alert h3 {
+	margin-left: 10px;
+}
+
+.alert button {
+	margin-left: 270px;
+	margin-top: 25px;
+	width: 60px;
+	height: 30px;
+	background-color: #ED3939;
+	color: #FFF;
+	border: none;
+	cursor: pointer;
+	border-radius: 3px;
 }

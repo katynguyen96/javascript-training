@@ -4,7 +4,6 @@ export default class Controller{
 		this.view = view
 
 		// Explicit this binding
-		this.model.bindBookListChanged(this.onBookListChanged)
 		this.view.bindAddBook(this.handleAddBook)
 		this.view.bindDeleteBook(this.handleDeleteBook)
 		this.view.bindSearchBook(this.handleSearchBook)

@@ -5,7 +5,7 @@ export default class View{
 		this.inputDescription = document.getElementById('add-des')
 		this.inputImg = document.getElementById('add-img')
 		this.inputCate = document.getElementById('add-cate')
-		this.booklist = document.getElementById('book-list')
+		this.booklist = document.getElementById('booklist')
 		this.updateForm = document.getElementById('update-form')
 		this.addBtn = document.getElementById("submit")
 		this.formUpdate = document.getElementById('update-form')
@@ -41,61 +41,61 @@ export default class View{
 
 	// Render Item
 	display(books){
-			if(books.length !== 0){
-				const wrapper = document.getElementsByClassName("booklist")
-				wrapper[0].innerHTML = ""
+		if(books.length !== 0){
+			const wrapper = document.getElementsByClassName("booklist")
+			wrapper[0].innerHTML = ""
 
-				books.forEach(book=>{
-					let cardBook = document.createElement("div")
-					cardBook.id = book.id
-					cardBook.className = "card-book"
+			books.forEach(book=>{
+				let cardBook = document.createElement("div")
+				cardBook.id = book.id
+				cardBook.className = "card-book"
 		
-					let title = document.createElement("h2")
-					title.className = "book-title"
-					title.textContent = book.title
+				let title = document.createElement("h2")
+				title.className = "book-title"
+				title.textContent = book.title
 		
-					let bookBody = document.createElement("div");
-					bookBody.className = "body";
+				let bookBody = document.createElement("div");
+				bookBody.className = "body";
 		
-					let img = document.createElement("div")
-					img.className = "book-img"
-					img.style.backgroundImage = `url(${book.image})`
+				let img = document.createElement("div")
+				img.className = "book-img"
+				img.style.backgroundImage = `url(${book.image})`
 		
-					let des = document.createElement("div")
-					des.className = "book-des"
-					des.textContent = book.description
+				let des = document.createElement("div")
+				des.className = "book-des"
+				des.textContent = book.description
 		
-					let author = document.createElement("h2")
-					author.className = "book-author"
-					author.textContent = book.author
+				let author = document.createElement("h2")
+				author.className = "book-author"
+				author.textContent = book.author
 		
-					bookBody.append(title, author, des)
+				bookBody.append(title, author, des)
 		
-					let btnDelete = document.createElement("button")
-					let icon1 = document.createElement("i")
-					icon1.className = "fa-solid fa-trash-can"
-					btnDelete.className = "delete-btn"
-					btnDelete.textContent = "Delete"
-					btnDelete.append(icon1)
+				let btnDelete = document.createElement("button")
+				let closeIcon = document.createElement("i")
+				closeIcon.className = "fa-solid fa-trash-can"
+				btnDelete.className = "delete-btn"
+				btnDelete.textContent = "Delete"
+				btnDelete.append(closeIcon)
 
-					let btnEdit = document.createElement("button")
-					btnEdit.className = "edit-btn"
-					let icon = document.createElement("i")
-					icon.className = "fa-solid fa-pen"
-					btnEdit.textContent = "Edit"
-					btnEdit.append(icon)
+				let btnEdit = document.createElement("button")
+				btnEdit.className = "edit-btn"
+				let editIcon = document.createElement("i")
+				editIcon.className = "fa-solid fa-pen"
+				btnEdit.textContent = "Edit"
+				btnEdit.append(editIcon)
 
-					btnEdit.addEventListener('click',()=>{
-						const overlay = document.getElementById('overlay')
-						const updateForm = document.getElementById("update-form")
-						this.editModal(book)
-						updateForm.style.visibility = "visible"
-						overlay.style.opacity = "1"
-					})
-					cardBook.append(img, bookBody, btnDelete, btnEdit);
-					this.booklist.appendChild(cardBook)
+				btnEdit.addEventListener('click',()=>{
+					const overlay = document.getElementById('overlay')
+					const updateForm = document.getElementById("update-form")
+					this.editModal(book)
+					updateForm.style.visibility = "visible"
+					overlay.style.opacity = "1"
 				})
-			} 	
+				cardBook.append(img, bookBody, btnDelete, btnEdit);
+				this.booklist.appendChild(cardBook)
+			})
+		} 	
 	}
 
 	 /**
@@ -104,12 +104,14 @@ export default class View{
      */
 	bindAddBook(handler){
 		const addNewBook = document.getElementById("add-new-book")
+		//open add book modal
 		addNewBook.addEventListener("click",()=>{
 			const addModal = document.getElementById("add-book-page")
 			const overlay = document.getElementById("overlay")
 			addModal.style.visibility = "visible"
 			overlay.style.opacity = "1"
 		})
+		//close add book modal
 		const closeModal = document.getElementById("close-modal")
 		closeModal.addEventListener("click",()=>{
 			this.closeModalAdd()
@@ -119,14 +121,22 @@ export default class View{
 			this.closeModalAdd()
 		})
 		this.addBtn.addEventListener('click', e => {
-            handler(this.inputTitle.value,
+			//form validation
+			if(this.inputTitle.value 
+				&& this.inputAuthor.value
+				&& this.inputDescription.value 
+				&& this.inputCate.value
+				&& this.inputImg.value){
+				handler(this.inputTitle.value,
                 this.inputAuthor.value, 
                 this.inputDescription.value,
                 this.inputCate.value,
                 this.inputImg.value
             )
-            this.closeModalAdd()
-            this._resetInput()
+            	this.closeModalAdd()
+            	this._resetInput()
+			}
+			else {alert("fill all the input")}
         })
 	}
 
@@ -188,7 +198,7 @@ export default class View{
 		let comicOp = document.createElement('option')
 		comicOp.value = "Comic"
 		comicOp.text = "Comic"
-		inputUpdateCate.add(comicOP)
+		inputUpdateCate.add(comicOp)
 		let horrorOP = document.createElement('option')
 		horrorOP.value = "Horror"
 		horrorOP.text = "Horror"
@@ -220,7 +230,7 @@ export default class View{
 		btnUpdate.className = 'btn-update'
 		btnUpdate.id = 'btn-update'
 
-
+		//submit edit
 		btnUpdate.addEventListener('click',()=>{
 			const overlay = document.getElementById('overlay')
 			const updateForm = document.getElementById('update-form')
@@ -233,6 +243,7 @@ export default class View{
 		btnClose.textContent = 'Close'
 		btnClose.className = "btn-close"
 
+		//close edit modal
 		btnClose.addEventListener('click',()=>{
 			const overlay = document.getElementById('overlay')
 			const updateForm = document.getElementById('update-form')
@@ -268,6 +279,7 @@ export default class View{
 	bindUpdateBook(handler){
 		this.booklist.addEventListener('click', e=>{
 			if(e.target.className === 'edit-btn'){
+				//get id and all the value
 				const id = e.target.parentElement.id
 				const updateTitle = document.getElementById('update-title')
 				const updateAuthor = document.getElementById('update-author')
@@ -275,6 +287,7 @@ export default class View{
 				const updateImg = document.getElementById('update-image')
 				const updateCate = document.getElementById('update-cate')
 				const edit = document.getElementById("btn-update")
+				//submit edit
 				edit.addEventListener('click',()=>{
 					handler(id,updateTitle.value,
 						updateAuthor.value,
@@ -282,6 +295,7 @@ export default class View{
 						updateCate.value,
 						updateImg.value)
 					const wrapper = document.getElementById('wrapper')
+					//remove edit modal
 					if(wrapper) {wrapper.remove()}
 				})
 			}
@@ -328,15 +342,27 @@ export default class View{
      * @param {function} handler 
      */
     bindSearchBook(handler){
+    	const closeAlert = document.getElementById('close-alert')
+    	//close search alert modal
+    	closeAlert.addEventListener('click',()=>{
+    		const alert = document.getElementById('alert')
+    		alert.style.visibility = "hidden"
+    		const overlay = document.getElementById('overlay')
+    		overlay.style.opacity = '0'
+    	})
     	this.search.addEventListener('click',() => {
     		if(this.inputSearch.value === ""){
-    			alert("Enter the book you want to find")
+    			const alert = document.getElementById('alert')
+    			alert.style.visibility = "visible"
+    			const overlay = document.getElementById('overlay')
+    			overlay.style.opacity = '1'
     		}
     		if(this.inputSearch.vale !== ""){
     			handler(this.inputSearch.value)
     		}
     	})
     	this.inputSearch.addEventListener("keyup",e=>{
+    		//search by enter key
     		if(e.which === this.ENTER_KEY){
     			if(this.inputSearch.value === ""){
     				alert("Enter the book you want to find")
@@ -354,6 +380,7 @@ export default class View{
      * @param {function} handler 
      */
     bindFilterBook(handler){
+    	//get all the value when checked
     	for(let check of this.checkCate){
     		check.addEventListener('click', ()=>{
     			if(check.checked){

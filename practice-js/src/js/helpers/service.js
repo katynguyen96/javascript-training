@@ -15,7 +15,6 @@ async function request(url, params, method = 'GET') {
             'Content-Type': 'application/json'
         }
     };
-
     if (params) {
         if (method === 'GET') {
             url += '?' + objectToQueryString(params);
@@ -24,6 +23,8 @@ async function request(url, params, method = 'GET') {
         }
     }
     const response = await fetch(api.API_HOST + url, options);
+    const result = await response.json();
+    return result;
 }
 
 /**
